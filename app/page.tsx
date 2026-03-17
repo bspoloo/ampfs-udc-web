@@ -10,7 +10,7 @@ export default function Home() {
           :v
         </h1>
         <div className="text-lg text-gray-700 dark:text-gray-300">
-          aqui va el proyecto de fronton web 1233
+          aqui va el proyecto de fronton web 1233123131321
         </div>
         <img src={Gura.src} alt="gura image xd" />
       </main>
