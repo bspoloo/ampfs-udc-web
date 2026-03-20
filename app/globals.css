@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fefefe;
+  --foreground: #151515;
 }
 
 @theme inline {
@@ -23,4 +23,56 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Clase para el contenedor con imagen de fondo */
+.fronton {
+  display: block;
+  margin: 0 auto;
+  width: 400px;
+  height: 550px;
+  max-width: 1200px;
+  padding: 1rem;
+  background-image: url('../public/fronton01.webp');
+  background-size: cover;
+  background-position: center;
+  border-radius: 16px;
+}
+
+.login {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  background-color: #646176;
+  background-image: url('../public/login_background.gif');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100svh;
+  padding: 1rem;
+}
+
+
+@media (max-width: 768px) {
+  .fronton {
+    display: none;
+  }
+
+  .login {
+    flex-direction: column;
+    background-color: #646176;
+  }
+}
+@media (max-width: 1024) {
+  .fronton {
+    display: none;
+    width: 600px;
+  }
+
+  .login {
+    flex-direction: column;
+    background-color: #646176;
+  }
 }

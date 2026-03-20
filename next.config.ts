@@ -21,8 +21,28 @@ const nextConfig: NextConfig = {
         destination: '/',
       },
       {
-        source: '/ampfs-udc/championships',
+        source: '/championships',
         destination: '/pages/championships',
+      },
+      {
+        source: '/login',
+        destination: '/pages/login',
+      },
+      {
+        source: '/dashboard',
+        destination: '/pages/dashboard',
+      },
+      {
+        source: '/player',
+        destination: '/pages/player',
+      },
+      {
+        source: '/referee',
+        destination: '/pages/referee',
+      },
+      {
+        source: '/unauthorized',
+        destination: '/pages/unauthorized',
       },
 
 
