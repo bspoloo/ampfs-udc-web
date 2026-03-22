@@ -43,7 +43,7 @@ export default function LoginCard() {
                 onSubmit={handleSubmit}
             >
                 <h2 className="text-2xl font-sans font-medium text-white mb-6 text-center">
-                    Asociación municipal de Fronton Sucre
+                    Asociación Municipal de Pelota Fronton Sucre
                 </h2>
 
                 <div className="space-y-5">
