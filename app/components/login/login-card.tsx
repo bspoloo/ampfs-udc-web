@@ -21,7 +21,7 @@ export default function LoginCard() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
             });
-            const data = await res.json();            
+            const data = await res.json();
             if (res.ok) {
                 router.push('/');
                 router.refresh();
@@ -38,18 +38,18 @@ export default function LoginCard() {
     return (
         <div className="w-full max-w-md mx-auto">
             <form
-                // className="bg-gradient-to-br from-[#2c2638] to-[#3a3348] rounded-2xl shadow-2xl p-8 border border-white/10"
-                className='p-8'
+                className="bg-transparent rounded-4xl  shadow-2xl  p-10  border-4  border-[#652636]/50  mt-[1px]  mb-[1px]  lg:mt-[100px] lg:mb-[100px]  sm:mb-[100px] sm:mt-[100px] backdrop-blur-lg"
+                // className='p-8'
                 onSubmit={handleSubmit}
             >
-                <h2 className="text-2xl font-bold text-white mb-6 text-center">
-                    Bienvenido de vuelta
+                <h2 className="text-2xl font-sans font-medium text-white mb-6 text-center">
+                    Asociación municipal de Fronton Sucre
                 </h2>
 
                 <div className="space-y-5">
                     {/* Campo Email */}
                     <div className="space-y-1">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-300 ml-1">
+                        <label htmlFor="email" className="block text-sm font-medium text-[#fffbf7] ml-1">
                             Email
                         </label>
                         <div className="relative">
@@ -59,16 +59,16 @@ export default function LoginCard() {
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="tu@email.com"
+                                placeholder="ejemplo@email.com"
                                 required
-                                className="w-full bg-[#1e1a24] text-white placeholder-gray-500 border border-[#4a435a] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#8a7ab5] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
+                                className="w-full bg-white text-white placeholder-gray-500 border border-[#9b690e] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
                             />
                         </div>
                     </div>
 
                     {/* Campo Contraseña */}
                     <div className="space-y-1">
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-300 ml-1">
+                        <label htmlFor="password" className="block text-sm font-medium text-[#fffbf7] ml-1">
                             Contraseña
                         </label>
                         <div className="relative">
@@ -81,18 +81,18 @@ export default function LoginCard() {
                                 placeholder="••••••••"
                                 required
                                 minLength={6}
-                                className="w-full bg-[#1e1a24] text-white placeholder-gray-500 border border-[#4a435a] rounded-xl px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-[#8a7ab5] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
+                                className="w-full bg-white text-white placeholder-gray-500 border border-[#9b690e] rounded-lg px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
                             />
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#9b690e] transition-colors"
                             >
                                 {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
                             </button>
                         </div>
-                        <div className="text-right mt-1">
-                            <a href="#" className="text-xs text-[#9d8ec9] hover:text-[#b4a6e0] transition-colors">
+                        <div className="text-left mt-1">
+                            <a href="#" className="text-xs text-[#fffbf7] hover:text-[#b4a6e0] transition-colors">
                                 ¿Olvidaste tu contraseña?
                             </a>
                         </div>
@@ -100,7 +100,7 @@ export default function LoginCard() {
 
                     {/* Mensaje de error */}
                     {error && (
-                        <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center py-2 px-3 rounded-lg">
+                        <div className="bg-[#1c3643]/50 border border-red-500/20 text-red-400 text-sm text-center py-2 px-3 rounded-lg">
                             {error}
                         </div>
                     )}
@@ -110,7 +110,7 @@ export default function LoginCard() {
                         <button
                             type='submit'
                             disabled={loading}
-                            className="flex-1 bg-gradient-to-r from-[#6d54b5] to-[#8a6ed9] hover:from-[#5a4499] hover:to-[#755bc2] text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-purple-900/30 hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex-1 bg-[#d68e06] hover:bg-[#9b690e] text-white font-semibold py-3 px-4 rounded-lg hover:border-[#9b690e] transition-all duration-300"
                         >
                             {loading ? (
                                 <span className="flex items-center justify-center">
@@ -122,30 +122,19 @@ export default function LoginCard() {
                                 </span>
                             ) : 'Iniciar Sesión'}
                         </button>
-
-                        <button
-                            type="button"
-                            className="flex-1 bg-transparent hover:bg-[#4a435a] text-white font-semibold py-3 px-4 rounded-xl border-2 border-[#6d54b5] hover:border-[#8a6ed9] transition-all duration-300"
-                            onClick={() => router.push('/register')}
-                        >
-                            Crear cuenta
-                        </button>
                     </div>
 
                     {/* Divisor */}
                     <div className="relative my-6">
-                        <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-[#4a435a]"></div>
-                        </div>
                         <div className="relative flex justify-center text-xs">
-                            <span className="px-2 bg-[#2c2638] text-gray-400">O continúa con</span>
+                            <span className="px-2 text-[#fffbf7]">O continúa con</span>
                         </div>
                     </div>
 
                     {/* Botón Google */}
                     <button
                         type="button"
-                        className="w-full flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 text-white font-medium py-3 px-4 rounded-xl border border-white/20 transition-all duration-300 backdrop-blur-sm"
+                        className="w-full flex items-center justify-center gap-3 bg-white hover:bg-white/20 text-[#1e1a24] font-bold py-3 px-4 rounded-lg border border-white/20 transition-all duration-300"
                         onClick={() => console.log("Google login")}
                     >
                         <FcGoogle className="text-2xl" />
@@ -154,10 +143,7 @@ export default function LoginCard() {
                 </div>
                 {/* Términos y condiciones */}
                 <p className="text-xs text-gray-400 text-center mt-4">
-                    Al iniciar sesión, aceptas nuestros{' '}
-                    <a href="#" className="text-[#9d8ec9] hover:text-[#b4a6e0]">Términos de uso</a>
-                    {' '}y{' '}
-                    <a href="#" className="text-[#9d8ec9] hover:text-[#b4a6e0]">Política de privacidad</a>
+                    No tienes una cuenta aún? <a href="#" className="text-[#fffbf7] hover:text-[#9b690e] transition-colors">Regístrate gratis</a>
                 </p>
             </form>
         </div>
