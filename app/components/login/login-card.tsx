@@ -38,7 +38,7 @@ export default function LoginCard() {
     return (
         <div className="w-full max-w-md mx-auto">
             <form
-                className="bg-black/10 rounded-4xl  shadow-2xl  p-10  border-4  border-[#652636]/50  lg:mt-[100px] lg:mb-[100px]  sm:mb-[100px] sm:mt-[100px] backdrop-blur-lg"
+                className="bg-black/10 rounded-4xl  shadow-2xl  p-10  border-4  border-[#652636]/50  lg:mt-[100px]  sm:mb-[100px] sm:mt-[100px] backdrop-blur-lg"
                 // className='p-8'
                 onSubmit={handleSubmit}
             >
