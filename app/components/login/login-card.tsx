@@ -61,7 +61,7 @@ export default function LoginCard() {
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="ejemplo@email.com"
                                 required
-                                className="w-full bg-white text-white placeholder-gray-500 border border-[#9b690e] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
+                                className="w-full bg-white font-bold text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
                             />
                         </div>
                     </div>
@@ -81,7 +81,7 @@ export default function LoginCard() {
                                 placeholder="••••••••"
                                 required
                                 minLength={6}
-                                className="w-full bg-white text-white placeholder-gray-500 border border-[#9b690e] rounded-lg px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
+                                className="w-full bg-white font-bold text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
                             />
                             <button
                                 type="button"
