@@ -52,6 +52,7 @@ export default function LoginCard() {
                                 name='email'
                                 type="email"
                                 value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 placeholder="ejemplo@email.com"
                                 required
                                 disabled={loading}
@@ -71,6 +72,7 @@ export default function LoginCard() {
                                 name='password'
                                 type={showPassword ? "text" : "password"}
                                 value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 placeholder="••••••••"
                                 required
                                 minLength={6}
