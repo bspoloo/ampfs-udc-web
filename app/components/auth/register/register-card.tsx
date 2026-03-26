@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Para mostrar/ocultar contraseña
 
-export default function LoginCard() {
+export default function RegisterCard() {
     const router = useRouter();
     const [error, setError] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
@@ -38,12 +38,12 @@ export default function LoginCard() {
     return (
         <div className="w-full max-w-md mx-auto">
             <form
-                className="bg-transparent rounded-4xl  shadow-2xl  p-10  border-4  border-[#652636]/50  lg:mt-[100px] lg:mb-[100px]  sm:mb-[100px] sm:mt-[100px] backdrop-blur-lg"
+                className="bg-black/10 rounded-4xl  shadow-2xl  p-10  border-4  border-[#652636]/50  lg:mt-[100px]  sm:mb-[100px] sm:mt-[100px] backdrop-blur-lg"
                 // className='p-8'
                 onSubmit={handleSubmit}
             >
                 <h2 className="text-2xl font-sans font-medium text-white mb-6 text-center">
-                    Asociación municipal de Fronton Sucre
+                    Registrarte en la Asociación municipal de Fronton Sucre
                 </h2>
 
                 <div className="space-y-5">
@@ -61,7 +61,25 @@ export default function LoginCard() {
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="ejemplo@email.com"
                                 required
-                                className="w-full bg-white text-white placeholder-gray-500 border border-[#9b690e] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
+                                className="w-full bg-white font-bold text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="space-y-1">
+                        <label htmlFor="email" className="block text-sm font-medium text-[#fffbf7] ml-1">
+                            Email
+                        </label>
+                        <div className="relative">
+                            <input
+                                id='email'
+                                name='email'
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="ejemplo@email.com"
+                                required
+                                className="w-full bg-white font-bold text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
                             />
                         </div>
                     </div>
@@ -81,7 +99,7 @@ export default function LoginCard() {
                                 placeholder="••••••••"
                                 required
                                 minLength={6}
-                                className="w-full bg-white text-white placeholder-gray-500 border border-[#9b690e] rounded-lg px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
+                                className="w-full bg-white font-bold text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
                             />
                             <button
                                 type="button"
