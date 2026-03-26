@@ -2,14 +2,14 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  distDir: 'build',
+  // distDir: 'build',
   output: 'standalone',
   env: {
     BACKEND_API_URL: process.env.BACKEND_API_URL
   }, 
   turbopack: {},
   webpack(config) {
-    config.module.push({
+    config.module.rules.push({
       test: /\.svg$/,
       use: [{ loader: "@svgr/webpack", options: { icon: true } }]
     })
