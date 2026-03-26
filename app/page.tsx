@@ -4,7 +4,7 @@ import Image from "next/image";
 import Gura from "../public/gura.gif";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { UserResponse } from "./interfaces/user.inteface";
+import { UserResponse } from "./interfaces/user.response";
 
 const getUser = async () => {
   const res = await fetch('/api/me');
