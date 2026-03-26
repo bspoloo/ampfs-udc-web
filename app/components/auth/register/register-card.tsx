@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Para mostrar/ocultar contraseña
 
-export default function LoginCard() {
+export default function RegisterCard() {
     const router = useRouter();
     const [error, setError] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
@@ -43,11 +43,29 @@ export default function LoginCard() {
                 onSubmit={handleSubmit}
             >
                 <h2 className="text-2xl font-sans font-medium text-white mb-6 text-center">
-                    Asociación municipal de Fronton Sucre
+                    Registrarte en la Asociación municipal de Fronton Sucre
                 </h2>
 
                 <div className="space-y-5">
                     {/* Campo Email */}
+                    <div className="space-y-1">
+                        <label htmlFor="email" className="block text-sm font-medium text-[#fffbf7] ml-1">
+                            Email
+                        </label>
+                        <div className="relative">
+                            <input
+                                id='email'
+                                name='email'
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="ejemplo@email.com"
+                                required
+                                className="w-full bg-white font-bold text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
+                            />
+                        </div>
+                    </div>
+
                     <div className="space-y-1">
                         <label htmlFor="email" className="block text-sm font-medium text-[#fffbf7] ml-1">
                             Email
