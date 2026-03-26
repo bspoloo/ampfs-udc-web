@@ -10,6 +10,9 @@ export async function POST(req: Request) {
         body: JSON.stringify(body),
     });
 
+    console.log("backend url is: ", process.env.BACKEND_API_URL);
+    
+
     const data = await backendRes.json();    
     if (!backendRes.ok) {
         return NextResponse.json({ message: data.message }, { status: 401 });
