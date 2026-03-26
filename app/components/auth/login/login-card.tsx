@@ -37,7 +37,7 @@ export default function LoginCard() {
                 onSubmit={handleSubmit}
             >
                 <h2 className="text-2xl font-sans font-medium text-white mb-6 text-center">
-                    Asociación municipal de Fronton Sucre
+                    Asociación Municipal de Pelota Fronton Sucre
                 </h2>
 
                 <div className="space-y-5">
@@ -52,6 +52,7 @@ export default function LoginCard() {
                                 name='email'
                                 type="email"
                                 value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 placeholder="ejemplo@email.com"
                                 required
                                 disabled={loading}
@@ -71,6 +72,7 @@ export default function LoginCard() {
                                 name='password'
                                 type={showPassword ? "text" : "password"}
                                 value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 placeholder="••••••••"
                                 required
                                 minLength={6}
