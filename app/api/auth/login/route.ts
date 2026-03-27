@@ -10,15 +10,13 @@ export async function POST(req: Request) {
         body: JSON.stringify(body),
     });
 
-    console.log("backend url is: ", process.env.BACKEND_API_URL);
-    
-
     const data = await backendRes.json();    
     if (!backendRes.ok) {
         return NextResponse.json({ message: data.message }, { status: 401 });
     }
     const {user} = data as { user: UserResponse };
     const response = NextResponse.json({ success: true });
+    
     response.cookies.set('access_token', data.access_token, {
         httpOnly: true,
         secure: true,
