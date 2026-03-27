@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
     const body = await req.json();
 
-    const backendRes = await fetch(`${process.env.BACKEND_API_URL}/auth/login`, {
+    const backendRes = await fetch(`${process.env.BACKEND_API_URL}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),

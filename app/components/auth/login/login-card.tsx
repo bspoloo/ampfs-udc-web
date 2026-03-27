@@ -3,7 +3,8 @@ import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useLogin } from '@/app/hooks/useLogin';
+import { useLogin } from '@/app/hooks/use-login';
+import { validateEmail } from '@/app/functions/validate-email';
 
 export default function LoginCard() {
     const router = useRouter();
@@ -11,12 +12,12 @@ export default function LoginCard() {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [shouldLogin, setShouldLogin] = useState<boolean>(false);
+    const [validationError, setValidationError] = useState<string>('');
     
     const { userResponse, loading, error } = useLogin({ email, password }, shouldLogin);
     
     useEffect(() => {
         if (userResponse) {
-            console.log('Usuario autenticado:', userResponse);
             router.push('/');
             router.refresh();
         }
@@ -27,6 +28,12 @@ export default function LoginCard() {
         if (!email.trim() || !password.trim()) {
             return;
         }
+
+        if(!validateEmail(email.trim())) {
+            setValidationError("El correo electronico debe ser valido");
+            return;
+        }
+        setValidationError('');
         setShouldLogin(true);
     };
 
@@ -40,8 +47,7 @@ export default function LoginCard() {
                     Asociación Municipal de Pelota Fronton Sucre
                 </h2>
 
-                <div className="space-y-5">
-                    {/* Campo Email */}
+                <div className="space-y-5">                    
                     <div className="space-y-1">
                         <label htmlFor="email" className="block text-sm font-medium text-[#fffbf7] ml-1">
                             Email
@@ -56,12 +62,10 @@ export default function LoginCard() {
                                 placeholder="ejemplo@email.com"
                                 required
                                 disabled={loading}
-                                className="w-full bg-white font-bold text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788] disabled:opacity-50"
+                                className="w-full bg-white text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788] disabled:opacity-50"
                             />
                         </div>
                     </div>
-
-                    {/* Campo Contraseña */}
                     <div className="space-y-1">
                         <label htmlFor="password" className="block text-sm font-medium text-[#fffbf7] ml-1">
                             Contraseña
@@ -77,7 +81,7 @@ export default function LoginCard() {
                                 required
                                 minLength={6}
                                 disabled={loading}
-                                className="w-full bg-white font-bold text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788] disabled:opacity-50"
+                                className="w-full bg-white text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788] disabled:opacity-50"
                             />
                             <button
                                 type="button"
@@ -94,20 +98,17 @@ export default function LoginCard() {
                             </a>
                         </div>
                     </div>
-
-                    {/* Mensaje de error */}
-                    {error && (
+                    
+                    {(error || validationError) && (
                         <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center py-2 px-3 rounded-lg">
-                            {error}
+                            {validationError || error}
                         </div>
                     )}
-
-                    {/* Botones */}
                     <div className="flex flex-col sm:flex-row gap-3 pt-4">
                         <button
                             type='submit'
                             disabled={loading}
-                            className="flex-1 bg-[#d68e06] hover:bg-[#9b690e] text-white font-semibold py-3 px-4 rounded-lg hover:border-[#9b690e] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex-1 bg-[#d68e06] hover:bg-[#9b690e] text-white font-medium py-3 px-4 rounded-lg hover:border-[#9b690e] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {loading ? (
                                 <span className="flex items-center justify-center">
@@ -120,15 +121,11 @@ export default function LoginCard() {
                             ) : 'Iniciar Sesión'}
                         </button>
                     </div>
-
-                    {/* Divisor */}
                     <div className="relative my-6">
                         <div className="relative flex justify-center text-xs">
                             <span className="px-2 text-[#fffbf7]">O continúa con</span>
                         </div>
                     </div>
-
-                    {/* Botón Google */}
                     <button
                         type="button"
                         className="w-full flex items-center justify-center gap-3 bg-white hover:bg-white/20 text-[#1e1a24] font-bold py-3 px-4 rounded-lg border border-white/20 transition-all duration-300"
@@ -139,10 +136,8 @@ export default function LoginCard() {
                         <span>Google</span>
                     </button>
                 </div>
-                
-                {/* Términos y condiciones */}
-                <p className="text-xs text-gray-400 text-center mt-4">
-                    No tienes una cuenta aún? <a href="#" className="text-[#fffbf7] hover:text-[#9b690e] transition-colors">Regístrate gratis</a>
+                                <p className="text-xs text-gray-400 text-center mt-4">
+                    No tienes una cuenta aún? <a href="/register" className="text-[#fffbf7] hover:text-[#9b690e] transition-colors">Regístrate gratis</a>
                 </p>
             </form>
         </div>
