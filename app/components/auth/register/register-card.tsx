@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Para mostrar/ocultar contraseña
 import { validateEmail } from '@/app/functions/validate-email';
+import { DialogDetails } from '../dialog-details/dialog-details';
+import { DialogDetailsProps } from '@/app/props/dialog-details.props';
 
 export default function RegisterCard() {
     const router = useRouter();
@@ -10,51 +12,39 @@ export default function RegisterCard() {
     const [loading, setLoading] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [showPasswordRepeat, setShowPasswordRepeat] = useState<boolean>(false);
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [passwordRepeat, setPasswordRepeat] = useState<string>('');
+    const [open, setOpen] = useState<boolean>(false);
+    const [details, setDetails] = useState<{ email: string, password: string, confirmPassword: string }>({
+        email: "",
+        password: "",
+        confirmPassword: ""
+    });
+
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setLoading(true);
+        // setLoading(true);
         setError('');
-        if (!validateEmail(email.trim())) {
-            setError("El correo electronico debe ser valido");
-            return;
-        }
-        try {
-            const res = await fetch('/api/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-            });
-            const data = await res.json();
-            if (res.ok) {
-                router.push('/');
-                router.refresh();
-            } else {
-                setError(data.message || 'Error al iniciar sesión');
-            }
-        } catch (err) {
-            setError('Error de conexión');
-        } finally {
-            setLoading(false);
-        };
+        setOpen(true);
     };
 
-    const handleEmail = (e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
-        setEmail(e.target.value);
-        if (validateEmail(email.trim())) {
-            setError("El correo electronico debe ser valido");
-            return;
+    const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setDetails({ ...details, email: value });
+        if (value.trim() === "") {
+            setError("El correo electrónico es requerido");
+        } else if (!validateEmail(value.trim())) {
+            setError("El correo electrónico debe ser válido");
+        } else {
+            setError("");
         }
     }
 
     const handleVerify = (e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
         e.preventDefault();
         const inputText = e.target.value;
-        setPasswordRepeat(inputText);
-        if (inputText != password) {
+        setDetails({ ...details, confirmPassword: inputText });
+
+        if (inputText != details.password) {
             setError("El Texto introducido no coincide con la contraseña");
             return;
         }
@@ -62,9 +52,9 @@ export default function RegisterCard() {
     }
 
     return (
-        <div className="w-full max-w-md mx-auto">
+        <div className="flex flex-col justify-center items-center w-full max-w-md mx-auto">
             <form
-                className="bg-black/10 rounded-4xl w-125  shadow-2xl  p-10  border-4  border-[#652636]/50  lg:mt-25  sm:mb-25 sm:mt-25 backdrop-blur-lg"
+                className="bg-black/10 rounded-4xl shadow-2xl  p-10  border-4  border-[#652636]/50  lg:mt-25  sm:mb-25 sm:mt-25 sm:w-125 backdrop-blur-lg"
                 // className='p-8'
                 onSubmit={handleSubmit}
             >
@@ -82,28 +72,11 @@ export default function RegisterCard() {
                                     id='email'
                                     name='email'
                                     type="email"
-                                    value={email}
+                                    value={details.email}
                                     onChange={(e) => handleEmail(e)}
                                     placeholder="ejemplo@email.com"
                                     required
-                                    className="w-full bg-white font-bold text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
-                                />
-                            </div>
-                        </div>
-                        <div className="space-y-1">
-                            <label htmlFor="email" className="block text-sm font-medium text-[#fffbf7] ml-1">
-                                Email
-                            </label>
-                            <div className="relative">
-                                <input
-                                    id='email'
-                                    name='email'
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => handleEmail(e)}
-                                    placeholder="ejemplo@email.com"
-                                    required
-                                    className="w-full bg-white font-bold text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
+                                    className="w-full bg-white text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
                                 />
                             </div>
                         </div>
@@ -118,12 +91,12 @@ export default function RegisterCard() {
                                 id='password'
                                 name='password'
                                 type={showPassword ? "text" : "password"}
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                value={details.password}
+                                onChange={(e) => setDetails( {...details, password: e.target.value} )}
                                 placeholder="••••••••"
                                 required
                                 minLength={6}
-                                className="w-full bg-white font-bold text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
+                                className="w-full bg-white text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
                             />
                             <button
                                 type="button"
@@ -144,12 +117,12 @@ export default function RegisterCard() {
                                 id='password'
                                 name='password'
                                 type={showPasswordRepeat ? "text" : "password"}
-                                value={passwordRepeat}
+                                value={details.confirmPassword}
                                 onChange={(e) => handleVerify(e)}
                                 placeholder="••••••••"
                                 required
                                 minLength={6}
-                                className="w-full bg-white font-bold text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
+                                className="w-full bg-white text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788]"
                             />
                             <button
                                 type="button"
@@ -171,7 +144,7 @@ export default function RegisterCard() {
                         <button
                             type='submit'
                             disabled={loading}
-                            className="flex-1 bg-[#d68e06] hover:bg-[#9b690e] text-white font-semibold py-3 px-4 rounded-lg hover:border-[#9b690e] transition-all duration-300"
+                            className="flex-1 bg-[#d68e06] hover:bg-[#9b690e] text-white font-med hover:border-[#9b690e] py-3 px-4 rounded-lg  transition-all duration-300"
                         >
                             {loading ? (
                                 <span className="flex items-center justify-center">
@@ -197,10 +170,12 @@ export default function RegisterCard() {
                         <FcGoogle className="text-2xl" />
                         <span>Google</span>
                     </button>
-                </div>                <p className="text-xs text-gray-400 text-center mt-4">
+                </div>
+                <p className="text-xs text-gray-400 text-center mt-4">
                     Ya tienes una cuenta? <a href="/login" className="text-[#fffbf7] hover:text-[#9b690e] transition-colors">Inicia sesión</a>
                 </p>
             </form>
+            <DialogDetails open={open} data={details} setOpen={setOpen}></DialogDetails>
         </div>
     );
 }

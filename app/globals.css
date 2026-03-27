@@ -4,6 +4,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+:root {
+  --font-sans: 'Inter', sans-serif;
+  --font-heading: 'Poppins', sans-serif;
+  --font-mono: 'Fira Code', monospace;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -54,6 +60,13 @@ body {
   height: 100svh;
 }
 
+.background-login {
+  background: radial-gradient(circle at center,
+      #2d1c29 0%,
+      #212733 50%,
+      #183f4d 100%);
+}
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -76,10 +89,6 @@ body {
   justify-content: center;
   gap: 2rem;
   margin: 0 auto;
-  background: radial-gradient(circle at center,
-      #2d1c29 0%,
-      #212733 50%,
-      #183f4d 100%);
   width: 100%;
   min-height: 100%;
   padding: 2rem;

@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useLogin } from '@/app/hooks/useLogin';
+import { useLogin } from '@/app/hooks/use-login';
 import { validateEmail } from '@/app/functions/validate-email';
 
 export default function LoginCard() {
@@ -47,7 +47,8 @@ export default function LoginCard() {
                     Asociación Municipal de Pelota Fronton Sucre
                 </h2>
 
-                <div className="space-y-5">                    <div className="space-y-1">
+                <div className="space-y-5">                    
+                    <div className="space-y-1">
                         <label htmlFor="email" className="block text-sm font-medium text-[#fffbf7] ml-1">
                             Email
                         </label>
@@ -61,7 +62,7 @@ export default function LoginCard() {
                                 placeholder="ejemplo@email.com"
                                 required
                                 disabled={loading}
-                                className="w-full bg-white font-bold text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788] disabled:opacity-50"
+                                className="w-full bg-white text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788] disabled:opacity-50"
                             />
                         </div>
                     </div>
@@ -80,7 +81,7 @@ export default function LoginCard() {
                                 required
                                 minLength={6}
                                 disabled={loading}
-                                className="w-full bg-white font-bold text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788] disabled:opacity-50"
+                                className="w-full bg-white text-[#1e1a24] placeholder-[#d7d7d7] border border-[#9b690e] rounded-lg px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-[#9b690e] focus:border-transparent transition-all duration-200 hover:border-[#6e6788] disabled:opacity-50"
                             />
                             <button
                                 type="button"
@@ -107,7 +108,7 @@ export default function LoginCard() {
                         <button
                             type='submit'
                             disabled={loading}
-                            className="flex-1 bg-[#d68e06] hover:bg-[#9b690e] text-white font-semibold py-3 px-4 rounded-lg hover:border-[#9b690e] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex-1 bg-[#d68e06] hover:bg-[#9b690e] text-white font-medium py-3 px-4 rounded-lg hover:border-[#9b690e] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {loading ? (
                                 <span className="flex items-center justify-center">
