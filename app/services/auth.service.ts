@@ -6,7 +6,7 @@ import { SyncUserRequest } from "../interfaces/auth/syn-user-request.interface";
 export class SyncUserRequestService {
     public static async syncUserRequest(profile : Profile): Promise<SyncUserResponse> {
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+            const res = await fetch(`${process.env.BACKEND_API_URL}/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -53,10 +53,10 @@ const nextConfig: NextConfig = {
 
 
       //always add in the final
-      {
-        source: '/:path*',
-        destination: '/'
-      }
+      // {
+      //   source: '/:path*',
+      //   destination: '/'
+      // }
     ]
   }
 };
