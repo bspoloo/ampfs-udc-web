@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  distDir: 'build',
+  // distDir: 'build',
   output: 'standalone',
   env: {
     BACKEND_API_URL: process.env.BACKEND_API_URL
