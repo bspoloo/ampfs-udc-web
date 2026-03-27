@@ -1,7 +1,7 @@
-export interface UserResponse {
+export interface User {
     username: string;
     fullname: string;
     email: string;
-    imageProfile: string;
+    image: string;
     roles: string[];
 }

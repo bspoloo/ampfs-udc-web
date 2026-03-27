@@ -54,7 +54,7 @@ export default function RegisterCard() {
     return (
         <div className="flex flex-col justify-center items-center w-full max-w-md mx-auto">
             <form
-                className="bg-black/10 rounded-4xl shadow-2xl  p-10  border-4  border-[#652636]/50  lg:mt-25  sm:mb-25 sm:mt-25 sm:w-125 backdrop-blur-lg"
+                className="bg-black/10 rounded-4xl shadow-2xl border-4  border-[#652636]/50 backdrop-blur-lg p-5 sm:p-5 w-[350px] md:p-2.5 lg:p-7.5 lg:mt-25 lg:mb-25 sm:mt-25 sm:mb-25  md:w-[500px] lg:w-[500px]"
                 // className='p-8'
                 onSubmit={handleSubmit}
             >
