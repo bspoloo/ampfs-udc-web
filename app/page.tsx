@@ -4,7 +4,7 @@ import Image from "next/image";
 import Gura from "../public/gura.gif";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { UserResponse } from "./interfaces/user.response";
+import { User } from "./interfaces/user.interface";
 
 const getUser = async () => {
   const res = await fetch('/api/me');
@@ -13,7 +13,7 @@ const getUser = async () => {
 };
 
 export default function Home() {
-  const [user, setUser] = useState<UserResponse | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
 
   const closeSesion = async () => {
@@ -41,10 +41,10 @@ export default function Home() {
           </div>
         </h1>
         <div className="text-lg text-gray-700 dark:text-gray-300">
-          aqui va el proyecto de fronton web 1233123131321 {user.imageProfile}
+          aqui va el proyecto de fronton web 1233123131321 {user.image}
         </div>
         <button onClick={closeSesion}>Cerrar session</button>
-        <img src={user.imageProfile } alt="Profile image" />
+        <img src={user.image } alt="Profile image" />
         <img src={Gura.src} alt="gura image xd" />
       </main>
     </div>

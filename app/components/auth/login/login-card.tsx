@@ -13,41 +13,45 @@ export default function LoginCard() {
     const [password, setPassword] = useState<string>('');
     const [shouldLogin, setShouldLogin] = useState<boolean>(false);
     const [validationError, setValidationError] = useState<string>('');
-    
-    const { userResponse, loading, error } = useLogin({ email, password }, shouldLogin);
-    
+
+    const { userResponse, loading, error, resetError } = useLogin({ email, password }, shouldLogin);
+
     useEffect(() => {
         if (userResponse) {
             router.push('/');
             router.refresh();
         }
     }, [userResponse, router]);
-    
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!email.trim() || !password.trim()) {
-            return;
-        }
-
-        if(!validateEmail(email.trim())) {
+        resetError?.();
+        setValidationError("");
+        if (!validateEmail(email.trim())) {
             setValidationError("El correo electronico debe ser valido");
             return;
         }
-        setValidationError('');
-        setShouldLogin(true);
+        if (shouldLogin) {
+            setShouldLogin(false);
+            setTimeout(() => {
+                setShouldLogin(true);
+            }, 100);
+        } else {
+            setShouldLogin(true);
+        }
     };
 
     return (
         <div className="w-full max-w-md mx-auto">
             <form
-                className="bg-black/10 rounded-4xl shadow-2xl p-10 border-4 border-[#652636]/50 lg:mt-25 sm:mb-25 sm:mt-25 backdrop-blur-lg"
+                className="bg-black/10 rounded-4xl shadow-2xl border-4 border-[#652636]/50 backdrop-blur-lg p-5 sm:p-5 md:p-2.5 lg:p-7.5 lg:mt-25 lg:mb-25"
                 onSubmit={handleSubmit}
             >
                 <h2 className="text-2xl font-sans font-medium text-white mb-6 text-center">
                     Asociación Municipal de Pelota Fronton Sucre
                 </h2>
 
-                <div className="space-y-5">                    
+                <div className="space-y-5">
                     <div className="space-y-1">
                         <label htmlFor="email" className="block text-sm font-medium text-[#fffbf7] ml-1">
                             Email
@@ -98,7 +102,7 @@ export default function LoginCard() {
                             </a>
                         </div>
                     </div>
-                    
+
                     {(error || validationError) && (
                         <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center py-2 px-3 rounded-lg">
                             {validationError || error}
@@ -136,7 +140,7 @@ export default function LoginCard() {
                         <span>Google</span>
                     </button>
                 </div>
-                                <p className="text-xs text-gray-400 text-center mt-4">
+                <p className="text-xs text-gray-400 text-center mt-4">
                     No tienes una cuenta aún? <a href="/register" className="text-[#fffbf7] hover:text-[#9b690e] transition-colors">Regístrate gratis</a>
                 </p>
             </form>

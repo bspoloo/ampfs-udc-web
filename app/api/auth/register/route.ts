@@ -1,4 +1,4 @@
-import { UserResponse } from '@/app/interfaces/user.response';
+import { User } from '@/app/interfaces/user.interface';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     if (!backendRes.ok) {
         return NextResponse.json({ message: data.message }, { status: 401 });
     }
-    const {user} = data as { user: UserResponse };
+    const {user} = data as { user: User };
     const response = NextResponse.json({ success: true });
     
     response.cookies.set('access_token', data.access_token, {
@@ -35,7 +35,7 @@ export async function POST(req: Request) {
         username: user.username,
         fullname: user.fullname,
         email: user.email,
-        imageProfile: user.imageProfile
+        imageProfile: user.image
     }), {
         httpOnly: false,
         secure: true,

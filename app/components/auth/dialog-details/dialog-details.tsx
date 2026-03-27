@@ -83,7 +83,7 @@ export function DialogDetails({ open, data, setOpen }: DialogDetailsProps) {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="w-full max-w-md background-login backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl p-8">
+            <DialogContent className="w-full background-login backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl p-8">
                 <form onSubmit={handleSubmit}>
                     <DialogHeader className="space-y-2 text-center">
                         <DialogTitle className="text-xl font-semibold text-white">
@@ -133,7 +133,7 @@ export function DialogDetails({ open, data, setOpen }: DialogDetailsProps) {
                                     name="username"
                                     value={register.numberPhone}
                                     onChange={(e) => setRegister({ ...register, numberPhone: e.target.value })}
-                                    placeholder="Joel123"
+                                    placeholder="12345678"
                                     className="mt-1 h-11 bg-white/5 border border-white/10 text-white placeholder:text-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
                                 />
                             </div>
