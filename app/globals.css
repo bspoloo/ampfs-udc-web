@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fefefe;
+  --foreground: #151515;
 }
 
 @theme inline {
@@ -23,4 +23,207 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100svh;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background:
+    url('../public/logo_black.png') no-repeat center,
+    radial-gradient(circle at center, #7d060a 0%, #600409 50%, #1c0203 100%);
+  background-position: left, center;
+  background-size: contain, auto;
+  height: 95%;
+  width: 90%;
+  border-radius: 32px;
+  margin: 0 auto;
+}
+
+.login {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin: 0 auto;
+  background: radial-gradient(circle at center,
+      #2d1c29 0%,
+      #212733 50%,
+      #183f4d 100%);
+  width: 100%;
+  min-height: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.fronton {
+  flex: 1;
+  max-width: 500px;
+  height: auto;
+  border-radius: 1rem;
+  object-fit: cover;
+}
+
+.form-container {
+  flex: 1;
+  max-width: 450px;
+  width: 100%;
+  padding: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .login {
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .fronton {
+    max-width: 400px;
+  }
+
+  .form-container {
+    max-width: 400px;
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .login {
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    min-height: 100svh;
+    background: radial-gradient(circle at center,
+        #2d1c29 0%,
+        #212733 70%,
+        #183f4d 100%);
+  }
+
+  .fronton {
+    display: none;
+  }
+
+  .form-container {
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  .login-container {
+    height: auto;
+    width: 95%;
+    padding: 1rem;
+  }
+}
+
+/* Móviles pequeños (480px) */
+@media (max-width: 480px) {
+  .login {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .form-container {
+    padding: 0.75rem;
+  }
+
+  .login-container {
+    width: 98%;
+    padding: 0.5rem;
+  }
+}
+
+/* Ajustes para pantallas muy pequeñas (320px) */
+@media (max-width: 320px) {
+  .login {
+    padding: 0.75rem;
+  }
+
+  .form-container {
+    padding: 0.5rem;
+  }
+}
+
+/* Ajustes para orientación horizontal en móviles */
+@media (max-width: 768px) and (orientation: landscape) {
+  .login {
+    flex-direction: row;
+    min-height: auto;
+    padding: 1rem;
+  }
+
+  .fronton {
+    display: block;
+    max-width: 200px;
+  }
+
+  .form-container {
+    max-width: 300px;
+  }
+}
+
+/* Pantallas grandes (1440px+) */
+@media (min-width: 1440px) {
+  .login {
+    margin: 0 auto;
+  }
+
+  .fronton {
+    max-width: 600px;
+  }
+
+  .form-container {
+    max-width: 550px;
+  }
+}
+
+/* Pantallas extra grandes (1920px+) */
+@media (min-width: 1920px) {
+  .login {
+    max-width: 100%;
+  }
+
+  .fronton {
+    max-width: 700px;
+  }
+
+  .form-container {
+    max-width: 650px;
+  }
+}
+
+/* Utilidades adicionales */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scroll suave */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
