@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { decodeJwt } from "jose";
+import { log } from "console";
 
 export async function proxy(req: NextRequest) {
     const { pathname } = req.nextUrl;
@@ -20,14 +21,16 @@ export async function proxy(req: NextRequest) {
         const roles = payload.roles as string[];       
         const protectedRoutes: Record<string, string[]> = {
             '/dashboard': ["admin"],
-            '/championships': ["admin", "user"],
+            '/championships': ["admin"],
             '/player': ["admin", "player"],
             '/referee': ["admin", "referee"],
         };
 
         let hasAccess = false;
         for (const [route, allowedRoles] of Object.entries(protectedRoutes)) {
+            console.log("/championships", route);
             if (pathname.startsWith(route)) {
+                console.log("/championships", route);
                 hasAccess = roles.some(r => allowedRoles.includes(r));
             }
         }

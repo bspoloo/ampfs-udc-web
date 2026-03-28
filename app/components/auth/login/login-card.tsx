@@ -23,7 +23,7 @@ export default function LoginCard() {
 
     useEffect(() => {
         if (userResponse) {
-            router.push('/');
+            router.push('/championships');
             router.refresh();
         }
     }, [userResponse, router]);
