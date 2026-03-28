@@ -57,8 +57,6 @@ export default function RegisterCard() {
                 boxShadow: '0 8px 32px rgba(0, 0, 0, 0.35)',
             }}
         >
-           
-
             {/* TÍTULO */}
             <h2 className="text-2xl font-bold text-white self-center">Registro</h2>
 
@@ -129,7 +127,7 @@ export default function RegisterCard() {
                 </div>
 
                 {/* ERROR */}
-                {error && <p className="text-red-400 text-xs">{error}</p>}
+                {error && <p className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center py-2 px-3 rounded-lg">{error}</p>}
 
                 {/* BOTÓN */}
                 <button

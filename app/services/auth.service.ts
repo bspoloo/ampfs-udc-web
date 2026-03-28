@@ -31,7 +31,7 @@ export class SyncUserRequestService {
 
     public static async syncUserRequestCredentials(credentials: CredentialsInterface): Promise<SyncUserResponse | null> {
         try {
-            const res = await fetch(`${process.env.BACKEND_API_URL}/auth/sync-user-email`, {
+            const res = await fetch(`${process.env.BACKEND_API_URL}/auth/sync-user-credentials`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

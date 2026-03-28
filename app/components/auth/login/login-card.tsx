@@ -7,7 +7,7 @@ import { validateEmail } from '@/app/functions/validate-email';
 import Image from 'next/image';
 import { Eye, EyeOff } from 'lucide-react';
 import ButtonLogin from '../button-login/button-login';
-import { signIn } from 'next-auth/react';
+import { signIn, SignInResponse } from 'next-auth/react';
 
 export default function LoginCard() {
     const router = useRouter();
@@ -17,35 +17,49 @@ export default function LoginCard() {
     const [showPassword, setShowPassword] = useState(false);
     const [shouldLogin, setShouldLogin] = useState(false);
     const [validationError, setValidationError] = useState('');
+    const [response, setResponse] = useState<SignInResponse | undefined>(undefined);
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
-    const { userResponse, loading, error, resetError } = useLogin(
-        { email, password },
-        shouldLogin
-    );
-
-    useEffect(() => {
-        if (userResponse) {
-            router.push('/');
-            router.refresh();
-        }
-    }, [userResponse, router]);
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        resetError?.();
         setValidationError('');
-
+        setError(null);
+        setValidationError('');
+        setLoading(true);
         if (!validateEmail(email.trim())) {
             setValidationError("El correo debe ser válido");
+            setLoading(false);
             return;
         }
-        signIn("credentials", {
-            email,
-            password,
-            callbackUrl: "/"
-        });
-        // setShouldLogin(prev => !prev);
+        try {
+            const response = await signIn("credentials", {
+                email: email.trim(),
+                password: password,
+                redirect: false,
+            });
+
+            if (!response?.ok && response?.error) {
+                if (response.error === "CredentialsSignin") {
+                    setError("Correo electrónico o contraseña incorrectos");
+                } else if (response.error === "AccessDenied") {
+                    setError("Acceso denegado. No tienes permiso para ingresar.");
+                } else {
+                    setError("Error al iniciar sesión: " + response.error);
+                }
+                setLoading(false);
+                return;
+            }
+            if (response?.ok && response.status === 200) {
+                router.push('/');
+                router.refresh(); 
+            }
+
+        } catch (err) {
+            console.error("Login exception:", err);
+            setError("Error al conectar con el servidor");
+            setLoading(false);
+        }
     };
 
     return (
@@ -121,7 +135,7 @@ export default function LoginCard() {
 
                 {/* ERRORES */}
                 {(error || validationError) && (
-                    <p className="text-red-500 text-xs">{validationError || error}</p>
+                    <p className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center py-2 px-3 rounded-lg">{validationError || error}</p>
                 )}
 
                 {/* BOTÓN SIGN IN */}

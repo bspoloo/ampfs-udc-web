@@ -60,8 +60,6 @@ export function DialogDetails({ open, data, setOpen }: DialogDetailsProps) {
         e.preventDefault();
         resetError?.();
         setValidationError("");
-        console.log(register, data);
-
         setOpen(true);
         if (!data.email.trim() || !data.confirmPassword.trim()) {
             return;
