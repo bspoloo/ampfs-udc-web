@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   output: 'standalone',
   env: {
     BACKEND_API_URL: process.env.BACKEND_API_URL
-  }, 
+  },
   turbopack: {},
   webpack(config) {
     config.module.rules.push({
@@ -50,13 +50,16 @@ const nextConfig: NextConfig = {
         source: '/unauthorized',
         destination: '/pages/unauthorized',
       },
-
+      {
+        source: '/auth/error',
+        destination: '/pages/auth/error',
+      },
 
       //always add in the final
-      {
-        source: '/:path*',
-        destination: '/'
-      }
+      // {
+      //   source: '/:path*',
+      //   destination: '/'
+      // }
     ]
   }
 };
