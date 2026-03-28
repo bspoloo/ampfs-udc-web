@@ -156,7 +156,7 @@ export default function LoginCard() {
             </div>
 
             {/* GOOGLE BUTTON */}
-            <ButtonLogin />
+            <ButtonLogin actionType='login'/>
 
             {/* REGISTER LINK */}
             <p className="text-xs text-white/50 text-center">

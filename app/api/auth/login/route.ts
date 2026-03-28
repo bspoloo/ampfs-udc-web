@@ -34,33 +34,6 @@ export async function POST(req: Request) {
     }
     const { user } = data as { user: User };
     const response = NextResponse.json({ success: true });
-
-
-    response.cookies.set('access_token', data.access_token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'strict',
-        path: '/',
-    });
-
-    response.cookies.set('refresh_token', data.refresh_token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'strict',
-        path: '/',
-    });
-
-    response.cookies.set('user', JSON.stringify({
-        username: user.username,
-        fullname: user.fullname,
-        email: user.email,
-        imageProfile: user.image
-    }), {
-        httpOnly: false,
-        secure: true,
-        sameSite: 'lax',
-        path: '/',
-    });
-
+    
     return response;
 }

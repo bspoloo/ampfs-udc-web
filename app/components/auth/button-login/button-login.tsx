@@ -1,15 +1,20 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-export default function ButtonLogin() {
-    const {data: Sesion, status} = useSession();
+export default function ButtonLogin({ actionType }: { actionType: string }) {
+    const { data: Sesion, status } = useSession();
     const router = useRouter();
+    
+    const handleGoogleSignIn = async () => {
+        document.cookie = `auth_action=${actionType}; path=/`;
+        await signIn("google", {
+            callbackUrl: `/`,
+        });
+    };
 
     return <button
         type="button"
-        onClick={ async () => {
-            await signIn("google", { callbackUrl: "/" });
-        }}
+        onClick={handleGoogleSignIn}
         className="w-full flex items-center justify-center border border-white/30 rounded-lg py-2 bg-white/10 hover:bg-white/20 transition cursor-pointer"
     >
         <svg width="20" height="20" viewBox="0 0 48 48">

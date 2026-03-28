@@ -3,6 +3,8 @@ import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt"
 import { SyncUserRequestService } from "@/app/services/auth.service";
+import { RequestRegister } from "@/app/classes/request-register.class";
+import { cookies } from "next/headers";
 
 declare module "next-auth" {
     export interface Session {
@@ -42,6 +44,13 @@ const handler = NextAuth({
         Google({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+            authorization: {
+                params: {
+                    prompt: "consent",
+                    access_type: "offline",
+                    response_type: "code",
+                }
+            }
         }),
         Credentials({
             name: "credentials",
@@ -84,10 +93,18 @@ const handler = NextAuth({
     },
     callbacks: {
         async signIn({ user, account, profile }) {
+            let action = "login";
+
             if (account?.provider === "google") {
+                const cookieStore = await cookies();
+                const actionCookie = cookieStore.get("auth_action");
+
+                if (actionCookie?.value) {
+                    action = actionCookie.value;
+                }
                 if (profile?.email) {
                     try {
-                        const userResponse = await SyncUserRequestService.syncUserRequestEmail(profile);
+                        const userResponse = await RequestRegister.getActionRegister(action!, profile);
                         if (!userResponse || !userResponse.user) {
                             throw new Error("USER_NOT_REGISTERED");
                         }

@@ -4,25 +4,35 @@ import { BodyRequest } from "../classes/body-request";
 import { SyncUserRequest } from "../interfaces/auth/syn-user-request.interface";
 import { RequestEmail } from "../interfaces/request-email.interface";
 import { CredentialsInterface } from "../interfaces/credentials.interface";
+import { RegisterInterface } from "../interfaces/register.interface";
+import { generatePassword } from "../functions/generate-password";
 
 export class SyncUserRequestService {
-    public static async syncUserRequestRegistry(profile : Profile): Promise<SyncUserResponse> {
+    public static async syncUserRequestEmailRegistry(profile: Profile): Promise<SyncUserResponse> {
         try {
-            const res = await fetch(`${process.env.BACKEND_API_URL}/auth/sync-user-email`, {
+            const randomPassword = generatePassword(9);
+            const res = await fetch(`${process.env.BACKEND_API_URL}/auth/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 //to register
-                body: BodyRequest.EntityToBody<SyncUserRequest>({
-                    fullname: profile?.email!,
-                    username: profile?.email!,
+                body: BodyRequest.EntityToBody<RegisterInterface>({
+                    fullname: profile?.name!,
+                    username: profile.email?.split("@")[0]!,
                     email: profile?.email!,
-                    image: (profile as Profile & { picture?: string })?.picture!,
+                    imageProfile: (profile as Profile & { picture?: string })?.picture!,
                     googleId: profile?.sub!,
+                    password: randomPassword,
+                    confirmPassword: randomPassword,
+                    // numberPhone: "Sin numero de telefono",
+                    roles: ["user"]
                 }),
             })
             const userInfo: SyncUserResponse = await res.json();
+
+            console.log(userInfo);
+            
             return userInfo;
         } catch (err) {
             throw new Error("Error syncing user: " + err);
@@ -46,7 +56,7 @@ export class SyncUserRequestService {
                 // Usuario no encontrado
                 return null;
             }
-            
+
             if (!res.ok) {
                 throw new Error('Error syncing user');
             }
@@ -58,7 +68,7 @@ export class SyncUserRequestService {
         }
     }
 
-    public static async syncUserRequestEmail(profile : Profile): Promise<SyncUserResponse> {
+    public static async syncUserRequestEmail(profile: Profile): Promise<SyncUserResponse> {
         try {
             const res = await fetch(`${process.env.BACKEND_API_URL}/auth/sync-user-email`, {
                 method: "POST",
