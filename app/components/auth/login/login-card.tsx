@@ -7,6 +7,7 @@ import { validateEmail } from '@/app/functions/validate-email';
 import Image from 'next/image';
 import { Eye, EyeOff } from 'lucide-react';
 import ButtonLogin from '../button-login/button-login';
+import { signIn } from 'next-auth/react';
 
 export default function LoginCard() {
     const router = useRouter();
@@ -39,8 +40,12 @@ export default function LoginCard() {
             setValidationError("El correo debe ser válido");
             return;
         }
-
-        setShouldLogin(prev => !prev);
+        signIn("credentials", {
+            email,
+            password,
+            callbackUrl: "/"
+        });
+        // setShouldLogin(prev => !prev);
     };
 
     return (
@@ -54,7 +59,7 @@ export default function LoginCard() {
             }}
         >
 
-    
+
 
             {/* TÍTULO */}
             <h2 className="text-2xl font-bold text-white self-center">Iniciar sesión</h2>
@@ -137,7 +142,7 @@ export default function LoginCard() {
             </div>
 
             {/* GOOGLE BUTTON */}
-            <ButtonLogin/>
+            <ButtonLogin />
 
             {/* REGISTER LINK */}
             <p className="text-xs text-white/50 text-center">

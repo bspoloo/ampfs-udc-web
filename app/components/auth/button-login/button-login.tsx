@@ -8,7 +8,7 @@ export default function ButtonLogin() {
     return <button
         type="button"
         onClick={ async () => {
-            await signIn("google");
+            await signIn("google", { callbackUrl: "/" });
         }}
         className="w-full flex items-center justify-center border border-white/30 rounded-lg py-2 bg-white/10 hover:bg-white/20 transition cursor-pointer"
     >
