@@ -1,14 +1,34 @@
-export const errorMessages: Record<string, string> = {
-    'AccessDenied': 'No tienes acceso a esta aplicación. Tu cuenta de Google no está registrada o no tiene los permisos necesarios.',
-    'Configuration': 'Error de configuración del servidor. Por favor, contacta al administrador.',
-    'OAuthSignin': 'Error al iniciar sesión con el proveedor OAuth.',
-    'OAuthCallback': 'Error en la respuesta del proveedor OAuth.',
-    'OAuthCreateAccount': 'No se pudo crear la cuenta con el proveedor OAuth.',
-    'EmailCreateAccount': 'No se pudo crear la cuenta con el correo electrónico.',
-    'Callback': 'Error en el callback de autenticación.',
-    'OAuthAccountNotLinked': 'Para confirmar tu identidad, inicia sesión con la misma cuenta que usaste originalmente.',
-    'EmailSignin': 'Error al enviar el enlace de verificación.',
-    'CredentialsSignin': 'Las credenciales proporcionadas son incorrectas.',
-    'SessionRequired': 'Necesitas iniciar sesión para acceder a esta página.',
-    'default': 'Ocurrió un error durante la autenticación. Por favor, intenta nuevamente.'
+export const errorMessages: Record<string, { title: string; message: string; action: { text: string; href: string } }> = {
+    'AccessDenied': {
+        title: 'Acceso denegado',
+        message: 'No tienes permiso para acceder a esta aplicación.',
+        action: {
+            text: 'Volver al inicio',
+            href: '/'
+        }
+    },
+    'USER_NOT_REGISTERED': {
+        title: 'Usuario no registrado',
+        message: 'Esta cuenta de Google no está registrada en nuestro sistema. Por favor, regístrate primero.',
+        action: {
+            text: 'Registrarse',
+            href: '/register'
+        }
+    },
+    'CredentialsSignin': {
+        title: 'Error de inicio de sesión',
+        message: 'El correo electrónico o la contraseña son incorrectos.',
+        action: {
+            text: 'Volver al login',
+            href: '/login'
+        }
+    },
+    'default': {
+        title: 'Error de autenticación',
+        message: 'Ocurrió un error durante el proceso de autenticación.',
+        action: {
+            text: 'Volver al inicio',
+            href: '/'
+        }
+    }
 };

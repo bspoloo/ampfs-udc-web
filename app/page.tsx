@@ -16,15 +16,6 @@ export default function Home() {
   const router = useRouter();
   const { data: session, status } = useSession();
 
-  const closeSesion = async () => {
-    await fetch('/api/auth/logout', {
-      method: 'POST',
-      credentials: 'include'
-    });
-
-    router.push('/login');
-  };
-
   useEffect(() => {
     getUser().then(setUser);
   }, []);
