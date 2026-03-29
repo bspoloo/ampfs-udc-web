@@ -1,6 +1,9 @@
+import { ReactElement } from "react";
+import { NextPageWithLayout } from "../_app";
+import DashboardLayout from "./layout";
 
-export default function Dashboard() {
-    return (
+const Dashboard: NextPageWithLayout = () => {
+    return (<>
         <div className="flex flex-col items-center justify-center min-h-screen">
             <h1 className="text-2xl font-bold text-green-600">Bienvenido al Dashboard</h1>
             <p className="mt-4">Aquí puedes gestionar tus campeonatos y equipos.</p>
@@ -8,5 +11,15 @@ export default function Dashboard() {
                 Ver Campeonatos
             </a>
         </div>
+    </>);
+};
+
+Dashboard.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <DashboardLayout>
+            {page}
+        </DashboardLayout>
     );
-}
+};
+
+export default Dashboard;

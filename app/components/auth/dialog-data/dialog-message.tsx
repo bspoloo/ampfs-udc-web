@@ -30,10 +30,10 @@ export function DialogMessage({ open, data, setOpen }: DialogDataProps<User | nu
     return (
         <Dialog open={open} onOpenChange={setOpen}>
 
-            <DialogContent className="w-[95%] max-w-md mx-auto backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl p-0 overflow-hidden animate-in fade-in-0 zoom-in-95 duration-300">                <div className={`relative h-32 ${isSuccess ? 'bg-gradient-to-r from-emerald-500 to-teal-600' : 'bg-gradient-to-r '}`}>
+            <DialogContent className="w-[95%] max-w-md mx-auto backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl p-0 overflow-hidden animate-in fade-in-0 zoom-in-95 duration-300">                <div className={`relative h-32 ${isSuccess ? 'bg-gradient-to-r from-emerald-500 to-teal-600' : 'bg-gradient-to-r bg-gradient-to-r from-red-500 to-rose-600'}`}>
                 <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px]" />
                 <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2">
-                    <div className={`rounded-full p-3 shadow-xl ${isSuccess ? 'bg-emerald-500' : 'bg-red-500'}`}>
+                    <div className={`rounded-full p-3 shadow-xl ${isSuccess ? 'bg-emerald-500' : 'bg-red-500 '}`}>
                         {isSuccess ? (
                             <CheckCircle2 className="w-12 h-12 text-white" />
                         ) : (
@@ -44,7 +44,7 @@ export function DialogMessage({ open, data, setOpen }: DialogDataProps<User | nu
             </div>
                 <div className="px-6 pb-8 pt-12 text-center">
                     <DialogHeader className="space-y-3">
-                        <DialogTitle className={`text-2xl font-bold ${isSuccess ? 'text-emerald-400' : 'text-red-400'}`}>
+                        <DialogTitle className={`text-2xl font-bold ${isSuccess ? 'text-emerald-400' : 'text-red-400 '}`}>
                             {isSuccess ? "¡Registro exitoso!" : "Error en el registro"}
                         </DialogTitle>
                         <DialogDescription className="text-gray-300 text-base leading-relaxed">
@@ -68,18 +68,42 @@ export function DialogMessage({ open, data, setOpen }: DialogDataProps<User | nu
                             </p>
                         </div>
                     )}
-                    {!isSuccess && (
-                        <DialogFooter className="mt-8 flex-col gap-3">
-                            <Button
-                                type="button"
+                    <DialogFooter className="mt-8 flex flex-wrap flex-col gap-3">
+                        <Button 
+                            type="button" 
+                            onClick={() => {
+                                setOpen(false);
+                                if (isSuccess) {
+                                    router.push("/login");
+                                }
+                            }}
+                            className={`w-full py-6 font-semibold transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] ${
+                                isSuccess 
+                                    ? 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white shadow-lg hover:shadow-emerald-500/25' 
+                                    : 'bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white'
+                            }`}
+                        >
+                            {isSuccess ? (
+                                <span className="flex items-center gap-2">
+                                    Ir al inicio de sesión
+                                    <ArrowRight className="w-4 h-4" />
+                                </span>
+                            ) : (
+                                "Cerrar"
+                            )}
+                        </Button>
+                        
+                        {!isSuccess && (
+                            <Button 
+                                type="button" 
                                 variant="outline"
                                 onClick={() => setOpen(false)}
                                 className="w-full border-white/20 text-gray-300 hover:bg-white/10 hover:text-white"
                             >
                                 Intentar nuevamente
                             </Button>
-                        </DialogFooter>
-                    )}
+                        )}
+                    </DialogFooter>
                     {isSuccess && (
                         <div className="absolute top-3 right-3 opacity-20">
                             <Sparkles className="w-8 h-8 text-white" />
