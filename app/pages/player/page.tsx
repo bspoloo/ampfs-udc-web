@@ -1,6 +1,17 @@
+import { NextPageWithLayout } from "../_app";
+import { ReactElement } from "react";
+import PlayerLayout from "./layout";
 
-export default function Player() {
-    return <div>
-        <h1> this is the page of Player xd</h1>
-    </div>
-}  
+const Player: NextPageWithLayout = () => {
+    return <h1>this is the page of Player xd</h1>;
+};
+
+Player.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <PlayerLayout>
+            {page}
+        </PlayerLayout>
+    );
+};
+
+export default Player;
