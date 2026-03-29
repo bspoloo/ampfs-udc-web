@@ -1,9 +1,9 @@
 export interface RegisterInterface {
     googleId?: string
-    fullName: string;
+    fullname: string;
     username: string;
     email: string;
-    numberPhone: string;
+    numberPhone?: string;
     imageProfile?: string;
     password: string;
     confirmPassword: string;
