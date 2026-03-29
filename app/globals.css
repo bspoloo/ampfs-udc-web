@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+body {
+    background-color: #121212;
+}
+
+.dark {
+    --bg-main: #121212;
+    --bg-sidebar: #111111;
+    --border-dark: #2a2a2a;
+    --text-sidebar: #ffffff;
+    --btn-activo-sidebar: #b11212; 
+    --btn-normal-sidebar: #ffffff00; 
+    --hover-btn-sidebar: #1a1a1a;
+    --text-btn-sidebar: #cccccc;
+}
