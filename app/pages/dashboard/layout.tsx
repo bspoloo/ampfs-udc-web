@@ -6,9 +6,11 @@ export default function DashboardLayout({
     children: React.ReactNode;
 }) {
     return (<>
-        <main>
+        <main className="flex">
             <Sidebar />
-            {children}
+            <div className="flex justify-center items-center w-full">
+                {children}
+            </div>
         </main>
     </>)
 }

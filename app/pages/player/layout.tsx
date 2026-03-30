@@ -7,6 +7,8 @@ export default function PlayerLayout({
         <div className="bg-amber-400">
             <p>Usando layout del player xd</p>
         </div>
-        <main>{children}</main>
+        <main>
+            {children}
+        </main>
     </>)
 }
