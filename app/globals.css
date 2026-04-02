@@ -14,3 +14,26 @@ body {
     --hover-btn-sidebar: #1a1a1a;
     --text-btn-sidebar: #cccccc;
 }
+
+.custom-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-dark) transparent;
+}
+
+.custom-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    background-color: var(--border-dark);
+    border-radius: 9999px;
+    transition: background-color 0.3s;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: var(--btn-activo-sidebar);
+}

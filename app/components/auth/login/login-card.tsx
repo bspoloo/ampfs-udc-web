@@ -11,7 +11,7 @@ import { signIn, SignInResponse } from 'next-auth/react';
 
 export default function LoginCard() {
     const router = useRouter();
-
+    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -51,7 +51,7 @@ export default function LoginCard() {
                 return;
             }
             if (response?.ok && response.status === 200) {
-                router.push('/');
+                router.push('/championships');
                 router.refresh(); 
             }
 

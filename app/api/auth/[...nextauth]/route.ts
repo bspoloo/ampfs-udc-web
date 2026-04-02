@@ -13,7 +13,6 @@ declare module "next-auth" {
             fullname?: string | "";
             username?: string | "";
             email: string | "";
-            imageProfile?: string | "";
             roles: string[] | [];
             image: string;
         }
@@ -105,6 +104,8 @@ const handler = NextAuth({
                 if (profile?.email) {
                     try {
                         const userResponse = await RequestRegister.getActionRegister(action!, profile);
+                        console.log(userResponse);
+                        
                         if (!userResponse || !userResponse.user) {
                             throw new Error("USER_NOT_REGISTERED");
                         }
@@ -128,7 +129,7 @@ const handler = NextAuth({
                     token.email = userResponse.user.email;
                     token.fullname = userResponse.user.fullname;
                     token.username = userResponse.user.username;
-                    token.image = profile.image;
+                    token.image = userResponse.user.imageProfile;
                     token.roles = userResponse.user.roles;
                     token.accessToken = userResponse.accessToken;
                     token.refreshToken = userResponse.refreshToken;
