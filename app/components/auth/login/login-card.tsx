@@ -73,8 +73,6 @@ export default function LoginCard() {
             }}
         >
 
-
-
             {/* TÍTULO */}
             <h2 className="text-2xl font-bold text-white self-center">Iniciar sesión</h2>
 

@@ -1,14 +1,14 @@
 import { withAuth, NextRequestWithAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
+import { PROTECTED_ROUTES } from "./app/consts/protected-routes";
+import { PUBLIC_ROUTES } from "./app/consts/public-routes";
 
 export default withAuth(
     function middleware(req: NextRequestWithAuth) {
         const { pathname } = req.nextUrl;
         const token = req.nextauth.token;
-
-        const publicRoutes = ['/login', '/register', '/unauthorized', '/auth/error'];
-
-        if (publicRoutes.some(route => pathname.startsWith(route))) {
+        
+        if (PUBLIC_ROUTES.some(route => pathname.startsWith(route))) {
             return NextResponse.next();
         }
 
@@ -17,25 +17,17 @@ export default withAuth(
             loginUrl.searchParams.set("callbackUrl", pathname);
             return NextResponse.redirect(loginUrl);
         }
-
-        const protectedRoutes: Record<string, string[]> = {
-            '/dashboard': ["admin"],
-            '/championships': ["admin", "user"],
-            '/player': ["admin", "player"],
-            '/referee': ["admin", "referee"],
-        };
-
         let hasAccess = false;
 
-        Object.entries(protectedRoutes).forEach(([route, allowedRoles]) => {
+        Object.entries(PROTECTED_ROUTES).forEach(([route, allowedRoles]) => {
             if (pathname.startsWith(route)) {
                 const userRoles = (token?.roles as string[]) || [];
                 hasAccess = userRoles.some(role => allowedRoles.includes(role));
-                console.log(`Ruta ${route} - Roles usuario: ${userRoles} - Acceso: ${hasAccess}`);
+                // console.log(`Ruta ${route} - Roles usuario: ${userRoles} - Acceso: ${hasAccess}`);
             }
         });
 
-        const isProtectedRoute = Object.keys(protectedRoutes).some(route => pathname.startsWith(route));
+        const isProtectedRoute = Object.keys(PROTECTED_ROUTES).some(route => pathname.startsWith(route));
 
         if(pathname === '/') {
             return NextResponse.next();

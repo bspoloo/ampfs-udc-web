@@ -1,4 +1,4 @@
-import { User } from '@/app/interfaces/user.interface';
+import { UserInterface } from '@/app/interfaces/user.interface';
 import { NextResponse } from 'next/server';
 
 
@@ -9,7 +9,6 @@ declare module "next-auth" {
             fullname?: string | "";
             username?: string | "";
             email: string | "";
-            imageProfile?: string;
             roles: string[] | [];
             image: string;
         }
@@ -32,7 +31,7 @@ export async function POST(req: Request) {
     if (!backendRes.ok) {
         return NextResponse.json({ message: data.message }, { status: 401 });
     }
-    const { user } = data as { user: User };
+    const { user } = data as { user: UserInterface };
     const response = NextResponse.json({ success: true });
     
     return response;
