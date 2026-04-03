@@ -111,7 +111,7 @@ export function DialogDetails({ open, data, setOpen }: DialogDataProps<{ email: 
                                     value={register.fullname}
                                     onChange={(e) => setRegister({ ...register, fullname: e.target.value })}
                                     placeholder="Pedro Duarte"
-                                    className="mt-1 h-11 bg-white/5 border border-white/10 text-white placeholder:text-gray-500 focus:ring-2 focus:ring-[#d68e06] focus:border-transparent transition-all"
+                                    className="border border-white/30 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400 transition disabled:opacity-50 bg-white/10 text-white placeholder:text-white/40"
                                 />
                             </Field>
 
@@ -125,7 +125,7 @@ export function DialogDetails({ open, data, setOpen }: DialogDataProps<{ email: 
                                     value={register.username}
                                     onChange={(e) => setRegister({ ...register, username: e.target.value })}
                                     placeholder="Joel123"
-                                    className="mt-1 h-11 bg-white/5 border border-white/10 text-white placeholder:text-gray-500 focus:ring-2 focus:ring-[#d68e06] focus:border-transparent transition-all"
+                                    className="border border-white/30 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400 transition disabled:opacity-50 bg-white/10 text-white placeholder:text-white/40"
                                 />
                             </Field>
 
@@ -141,7 +141,7 @@ export function DialogDetails({ open, data, setOpen }: DialogDataProps<{ email: 
                                         value={register.numberPhone}
                                         onChange={(e) => setRegister({ ...register, numberPhone: e.target.value })}
                                         placeholder="12345678"
-                                        className="mt-1 h-11 bg-white/5 border border-white/10 text-white placeholder:text-gray-500 focus:ring-2 focus:ring-[#d68e06] focus:border-transparent transition-all"
+                                        className="border border-white/30 rounded-lg px-3 py-2 text-sm outline-none focus:border-amber-400 transition disabled:opacity-50 bg-white/10 text-white placeholder:text-white/40"
                                     />
                                 </div>
                             </Field>

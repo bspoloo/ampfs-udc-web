@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { User } from "./interfaces/user.interface";
+import { UserInterface } from "./interfaces/user.interface";
 import { signOut, useSession } from "next-auth/react";
 
 const getUser = async () => {
@@ -12,7 +12,7 @@ const getUser = async () => {
 };
 
 export default function Home() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserInterface | null>(null);
   const router = useRouter();
   const { data: session, status } = useSession();
 

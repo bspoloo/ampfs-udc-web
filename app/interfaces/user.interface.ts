@@ -1,8 +1,7 @@
-export interface User {
+export interface UserInterface {
     username: string;
     fullname: string; 
-    imageProfile?: string;
+    image?: string;
     email: string;
-    image: string;
     roles: string[];
 }

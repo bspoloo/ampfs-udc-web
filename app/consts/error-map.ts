@@ -1,4 +1,4 @@
-export const errorMessages: Record<string, { title: string; message: string; action: { text: string; href: string } }> = {
+export const ERROR_MESSAGES: Record<string, { title: string; message: string; action: { text: string; href: string } }> = {
     'AccessDenied': {
         title: 'Acceso denegado',
         message: 'No tienes permiso para acceder a esta aplicación.',
