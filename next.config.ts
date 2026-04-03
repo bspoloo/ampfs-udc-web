@@ -40,6 +40,10 @@ const nextConfig: NextConfig = {
         source: '/dashboard/championships',
         destination: '/pages/dashboard/championships',
       },
+      {
+        source: '/dashboard/matches',
+        destination: '/pages/dashboard/matches',
+      },
       // Other roles pages
       {
         source: '/player',
