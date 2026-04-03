@@ -1,11 +1,8 @@
-export interface RegisterInterface {
+import { UserInterface } from "./user.interface";
+
+export interface RegisterInterface extends UserInterface{
     googleId?: string
-    fullname: string;
-    username: string;
-    email: string;
     numberPhone?: string;
-    imageProfile?: string;
     password: string;
     confirmPassword: string;
-    roles: string[];
 }

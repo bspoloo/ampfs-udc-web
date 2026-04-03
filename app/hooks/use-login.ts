@@ -1,15 +1,15 @@
 // hooks/useAuth.ts
 import { useEffect, useState } from "react";
 import { CredentialsInterface } from "../interfaces/credentials.interface";
-import { User } from "../interfaces/user.interface";
+import { UserInterface } from "../interfaces/user.interface";
 
 export function useLogin(credentials: CredentialsInterface, shouldLogin: boolean): {
-    userResponse: User | null;
+    userResponse: UserInterface | null;
     loading: boolean;
     error: string | null;
     resetError: () => void
 } {
-    const [userResponse, setUserResponse] = useState<User | null>(null);
+    const [userResponse, setUserResponse] = useState<UserInterface | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [attemptId, setAttemptId] = useState(0);

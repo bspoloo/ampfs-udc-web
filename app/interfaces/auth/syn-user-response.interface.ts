@@ -1,7 +1,7 @@
-import { User } from "../user.interface"
+import { UserInterface } from "../user.interface"
 
 export interface SyncUserResponse {
-    user:               User,
+    user:               UserInterface,
     accessToken:        string
     refreshToken:       string
 }
