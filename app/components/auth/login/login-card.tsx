@@ -11,13 +11,13 @@ import { signIn, SignInResponse } from 'next-auth/react';
 
 export default function LoginCard() {
     const router = useRouter();
-    
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     // const [shouldLogin, setShouldLogin] = useState(false);
     const [validationError, setValidationError] = useState('');
-    const [response, setResponse] = useState<SignInResponse | undefined>(undefined);
+    // const [response, setResponse] = useState<SignInResponse | undefined>(undefined);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -51,7 +51,7 @@ export default function LoginCard() {
                 return;
             }
             if (response?.ok && response.status === 200) {
-                router.push('/championships');
+                router.push('/');
                 router.refresh(); 
             }
 
@@ -72,6 +72,8 @@ export default function LoginCard() {
                 boxShadow: '0 8px 32px rgba(0, 0, 0, 0.35)',
             }}
         >
+
+
 
             {/* TÍTULO */}
             <h2 className="text-2xl font-bold text-white self-center">Iniciar sesión</h2>
