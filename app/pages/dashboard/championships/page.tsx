@@ -5,14 +5,10 @@ import Sidebar from "@/app/components/layout/sidebar/sidebar";
 
 export default function ChampionshipsPage() {
     return (
-        <div className="flex h-screen bg-(--bg-main)">
-            <Sidebar />
-
-            <main className="flex-1 p-6 overflow-y-auto">
-                <ChampionshipsHeader />
-                <ChampionshipsList />
-                <Pagination />
-            </main>
+        <div>
+            <ChampionshipsHeader />
+            <ChampionshipsList />
+            <Pagination />
         </div>
     );
 }
