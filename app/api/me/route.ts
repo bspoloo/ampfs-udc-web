@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({
             username: payload.username,
             fullname: payload.fullname,
-            imageProfile: payload.imageProfile,
+            image: payload.image,
             email: payload.email,
             roles: payload.roles,
             sub: payload.sub

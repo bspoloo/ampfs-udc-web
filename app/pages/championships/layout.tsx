@@ -1,4 +1,4 @@
-import Sidebar from "@/app/components/layout/sidebar/sidebar";
+import Sidebar from "@/app/components/dashboard/sidebar/sidebar";
 
 export default function ChampionshipsLayout({
     children,

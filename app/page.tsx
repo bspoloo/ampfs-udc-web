@@ -2,25 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { User } from "./interfaces/user.interface";
+import { UserInterface } from "./interfaces/user.interface";
 import { signOut, useSession } from "next-auth/react";
 
-const getUser = async () => {
-  const res = await fetch('/api/me');
-  const data = await res.json();
-  return data;
-};
 
 export default function Home() {
-  const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
   const { data: session, status } = useSession();
 
-  useEffect(() => {
-    getUser().then(setUser);
-  }, []);
-
-  if (!user) return <p>Cargando...</p>;
+  if (!session) return <p>Cargando...</p>;
 
   return (
     <div>

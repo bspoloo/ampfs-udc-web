@@ -1,14 +1,14 @@
 import ChampionshipsHeader from "@/app/components/championships/championships-header";
 import ChampionshipsList from "@/app/components/championships/championships-list";
 import Pagination from "@/app/components/championships/pagination";
-import Sidebar from "@/app/components/layout/sidebar/sidebar";
+import Sidebar from "@/app/components/dashboard/sidebar/sidebar";
 
 export default function ChampionshipsPage() {
     return (
-        <>
+        <div>
             <ChampionshipsHeader />
             <ChampionshipsList />
             <Pagination />
-        </>
+        </div>
     );
 }

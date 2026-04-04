@@ -21,7 +21,7 @@ export class SyncUserRequestService {
                     fullname: profile?.name!,
                     username: profile.email?.split("@")[0]!,
                     email: profile?.email!,
-                    imageProfile: (profile as Profile & { picture?: string })?.picture!,
+                    image: (profile as Profile & { picture?: string })?.picture!,
                     googleId: profile?.sub!,
                     password: randomPassword,
                     confirmPassword: randomPassword,
