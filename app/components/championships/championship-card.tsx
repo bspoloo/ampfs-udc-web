@@ -1,8 +1,10 @@
 "use client";
 
 import { ArrowRight, Users } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function ChampionshipCard() {
+    const router = useRouter();
     return (
         <div className="bg-(--bg-sidebar) border border-(--border-dark) rounded-2xl p-4 flex flex-col gap-4 hover:border-(--btn-activo-sidebar) transition">
 
@@ -46,7 +48,7 @@ export default function ChampionshipCard() {
                     </div>
                 </div>
 
-                <button className="bg-(--btn-activo-sidebar) p-3 rounded-full hover:scale-105 transition cursor-pointer">
+                <button className="bg-(--btn-activo-sidebar) p-3 rounded-full hover:scale-105 transition cursor-pointer" onClick={()=>router.push(`/pages/championships/championship`)}>
                     <ArrowRight className="w-4 h-4 text-white" />
                 </button>
 
