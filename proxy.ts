@@ -7,7 +7,7 @@ export default withAuth(
     function middleware(req: NextRequestWithAuth) {
         const { pathname } = req.nextUrl;
         const token = req.nextauth.token;
-        
+
         if (PUBLIC_ROUTES.some(route => pathname.startsWith(route))) {
             return NextResponse.next();
         }
@@ -32,18 +32,11 @@ export default withAuth(
         if(pathname === '/') {
             return NextResponse.next();
         }
-        
+
         if (isProtectedRoute && !hasAccess) {
             return NextResponse.redirect(new URL("/unauthorized", req.url));
         }
         return NextResponse.next();
-    },
-    {
-        callbacks: {
-            authorized: ({ token }) => {
-                return true;
-            }
-        }
     }
 );
 
