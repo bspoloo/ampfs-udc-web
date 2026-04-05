@@ -9,14 +9,20 @@ export default function ChampionshipCard() {
         <div className="bg-(--bg-sidebar) border border-(--border-dark) rounded-2xl p-4 flex flex-col gap-4 hover:border-(--btn-activo-sidebar) transition">
 
             <div className="relative">
+
                 <img
                     src="/championship_example.webp"
                     className="rounded-xl w-full h-40 object-cover"
                 />
 
-                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black px-4 py-1 text-xs rounded-full border border-(--border-dark)">
+                <div className="absolute top-2 right-2 bg-(--btn-activo-sidebar) text-white text-xs px-3 py-1 rounded-full shadow-md">
+                    Activo
+                </div>
+
+                <div className="absolute -bottom-3 left-1/5 -translate-x-1/2 bg-(--bg-main) px-4 py-1 text-xs rounded-full border border-(--border-dark) shadow-md text-(--text-sidebar)">
                     1/2026
                 </div>
+
             </div>
 
             <h3 className="text-lg font-semibold text-(--text-sidebar)">
@@ -48,7 +54,7 @@ export default function ChampionshipCard() {
                     </div>
                 </div>
 
-                <button className="bg-(--btn-activo-sidebar) p-3 rounded-full hover:scale-105 transition cursor-pointer" onClick={()=>router.push(`/pages/championships/championship`)}>
+                <button className="bg-(--btn-activo-sidebar) p-3 rounded-full hover:scale-105 transition cursor-pointer" onClick={() => router.push(`/dashboard/championships/1`)}>
                     <ArrowRight className="w-4 h-4 text-white" />
                 </button>
 
