@@ -37,6 +37,13 @@ export default withAuth(
             return NextResponse.redirect(new URL("/unauthorized", req.url));
         }
         return NextResponse.next();
+    },
+    {
+        callbacks: {
+            authorized: ({token}) => {
+                return true;
+            }
+        }
     }
 );
 
