@@ -43,7 +43,7 @@ export default function Home() {
           <div className="h-[72px]" />
           <div className="flex-1 flex items-stretch px-12 pb-14">
             <div className="flex-1 flex items-end">
-              
+
             </div>
             <div className="flex-1 flex flex-col items-start justify-center gap-3">
               <h1 className="text-white font-black leading-none" style={{ fontSize: "clamp(3rem, 8vw, 6rem)" }}>
@@ -135,7 +135,7 @@ export default function Home() {
               </li>
               <li className="flex items-center gap-3 text-sm text-white/50">
                 <Mail className="w-4 h-4 text-[#b11212] flex-shrink-0" />
-                ya tendremos uno bueno ya 
+                ya tendremos uno bueno ya
               </li>
               <li className="flex items-center gap-3 text-sm text-white/50">
                 <Phone className="w-4 h-4 text-[#b11212] flex-shrink-0" />

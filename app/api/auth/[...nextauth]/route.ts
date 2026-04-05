@@ -23,10 +23,10 @@ declare module "next-auth" {
         id?: string;
         fullname?: string;
         username?: string;
+        image?: string;
         roles?: string[];
         accessToken?: string;
         refreshToken?: string;
-        image?: string;
     }
 }
 
@@ -69,7 +69,7 @@ const handler = NextAuth({
                             email: data.user.email,
                             fullname: data.user.fullname,
                             username: data.user.username,
-                            image: data.user.imageProfile,
+                            image: data.user.image,
                             roles: data.user.roles,
                             accessToken: data.accessToken,
                             refreshToken: data.refreshToken,
@@ -129,7 +129,7 @@ const handler = NextAuth({
                     token.email = userResponse.user.email;
                     token.fullname = userResponse.user.fullname;
                     token.username = userResponse.user.username;
-                    token.image = userResponse.user.imageProfile;
+                    token.image = userResponse.user.image;
                     token.roles = userResponse.user.roles;
                     token.accessToken = userResponse.accessToken;
                     token.refreshToken = userResponse.refreshToken;

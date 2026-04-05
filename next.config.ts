@@ -22,10 +22,7 @@ const nextConfig: NextConfig = {
         source: '/',
         destination: '/',
       },
-      {
-        source: '/championships',
-        destination: '/pages/championships',
-      },
+      // Auth
       {
         source: '/login',
         destination: '/pages/auth/login',
@@ -34,10 +31,20 @@ const nextConfig: NextConfig = {
         source: '/register',
         destination: '/pages/auth/register',
       },
+      // Dashboard
       {
         source: '/dashboard',
         destination: '/pages/dashboard',
       },
+      {
+        source: '/dashboard/championships',
+        destination: '/pages/dashboard/championships',
+      },
+      {
+        source: '/dashboard/matches',
+        destination: '/pages/dashboard/matches',
+      },
+      // Other roles pages
       {
         source: '/player',
         destination: '/pages/player',

@@ -17,7 +17,7 @@ export default function LoginCard() {
     const [showPassword, setShowPassword] = useState(false);
     // const [shouldLogin, setShouldLogin] = useState(false);
     const [validationError, setValidationError] = useState('');
-    const [response, setResponse] = useState<SignInResponse | undefined>(undefined);
+    // const [response, setResponse] = useState<SignInResponse | undefined>(undefined);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 

@@ -1,6 +1,6 @@
 // app/api/auth/register/route.ts
 import { NextResponse } from 'next/server';
-import { User } from '@/app/interfaces/user.interface';
+import { UserInterface } from '@/app/interfaces/user.interface';
 
 export async function POST(req: Request) {
     try {
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
             );
         }
         
-        const { user } = data as { user: User };
+        const { user } = data as { user: UserInterface };
         
         return NextResponse.json({ 
             success: true, 
