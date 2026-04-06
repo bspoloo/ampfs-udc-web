@@ -11,6 +11,7 @@ import {
 import dynamic from "next/dynamic";
 import { useSession } from "next-auth/react";
 import { MenuHome } from "./classes/menu-home";
+import { NEWS, STEPS } from "./consts/menu-home";
 
 const HeroModel = dynamic(
   () => import("./components/home/hero-model").then((m) => m.HeroModel),
@@ -22,7 +23,6 @@ function useRevealObserver() {
 
   useEffect(() => {
     const seen = new WeakSet<Element>();
-
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -286,7 +286,7 @@ export default function Home() {
 
           {/* Cards glassmorphism */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {menuHome?.getNEWS().map(({ tag, tagColor, topColor, icon: Icon, title, desc, href }, i) => (
+            {NEWS.map(({ tag, tagColor, topColor, icon: Icon, title, desc, href }, i) => (
               <Link
                 key={title}
                 href={href}
@@ -354,7 +354,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {menuHome?.getSTEPS().map(({ icon: Icon, step, title, desc }, i) => (
+            {STEPS.map(({ icon: Icon, step, title, desc }, i) => (
               <div
                 key={step}
                 data-reveal
@@ -385,7 +385,7 @@ export default function Home() {
                 </div>
 
                 {/* Conector → */}
-                {i < menuHome.getSTEPS().length - 1 && (
+                {i < STEPS.length - 1 && (
                   <div className="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-[#0e0e0e] border border-white/10 items-center justify-center">
                     <ChevronRight className="w-4 h-4 text-[#b11212]" />
                   </div>
