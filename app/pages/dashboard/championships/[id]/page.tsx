@@ -3,6 +3,8 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Categories from "@/app/components/championships/categories";
+import Toast from "@/app/components/ui/toast";
+import ConfirmModal from "@/app/components/ui/confirm-modal";
 
 type StatusFront = "activo" | "proceso" | "finalizado";
 
@@ -15,6 +17,14 @@ type Championship = {
 export default function ChampionshipDetail() {
     const params = useParams();
     const id = params.id as string;
+
+    const [toast, setToast] = useState<{
+        message: string;
+        type: "success" | "error";
+    } | null>(null);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [pendingStatus, setPendingStatus] = useState<StatusFront | null>(null);
 
     const [championship, setChampionship] = useState<Championship | null>(null);
     const [status, setStatus] = useState<StatusFront>("activo");
@@ -44,9 +54,18 @@ export default function ChampionshipDetail() {
         }
     };
 
-    const handleChange = async (value: StatusFront) => {
+    const handleChange = (value: StatusFront) => {
+        if (value === status) return;
+        setPendingStatus(value);
+        setIsModalOpen(true);
+    };
+
+    const confirmChange = async () => {
+        if (!pendingStatus) return;
+
         const prev = status;
-        setStatus(value);
+        setStatus(pendingStatus);
+        setIsModalOpen(false);
 
         try {
             const res = await fetch(`http://localhost:5000/api/v1/championship/${id}/state`, {
@@ -54,15 +73,36 @@ export default function ChampionshipDetail() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ state: stateMap[value] }),
+                body: JSON.stringify({ state: stateMap[pendingStatus] }),
             });
 
-            if (!res.ok) throw new Error("Error al actualizar");
+            const data = await res.json();
 
-        } catch (error) {
+            if (!res.ok) {
+                throw new Error(data.message || "Error al actualizar");
+            }
+
+            setToast({
+                message: "Estado actualizado correctamente",
+                type: "success",
+            });
+
+        } catch (error: any) {
             console.error(error);
             setStatus(prev);
+
+            setToast({
+                message: error.message || "Error al actualizar",
+                type: "error",
+            });
         }
+
+        setTimeout(() => setToast(null), 3000);
+    };
+
+    const cancelChange = () => {
+        setIsModalOpen(false);
+        setPendingStatus(null);
     };
 
     useEffect(() => {
@@ -109,6 +149,16 @@ export default function ChampionshipDetail() {
             </div>
 
             <Categories />
+
+            {toast && <Toast message={toast.message} type={toast.type} />}
+
+            <ConfirmModal
+                isOpen={isModalOpen}
+                title="Confirmar cambio de estado"
+                message="¿Estás seguro de que deseas cambiar el estado del campeonato?"
+                onConfirm={confirmChange}
+                onCancel={cancelChange}
+            />
         </div>
     );
 }
