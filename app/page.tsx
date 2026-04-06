@@ -9,6 +9,9 @@ import {
   Zap, BarChart3, Layers, X, Menu,
 } from "lucide-react";
 import dynamic from "next/dynamic";
+import { useSession } from "next-auth/react";
+import { MenuHome } from "./classes/menu-home";
+import { NEWS, STEPS } from "./consts/menu-home";
 
 const HeroModel = dynamic(
   () => import("./components/home/hero-model").then((m) => m.HeroModel),
@@ -17,9 +20,9 @@ const HeroModel = dynamic(
 
 /* ── Hook global de reveal (entrada + salida con dirección) ── */
 function useRevealObserver() {
+
   useEffect(() => {
     const seen = new WeakSet<Element>();
-
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -47,69 +50,16 @@ function useRevealObserver() {
   }, []);
 }
 
-/* ── Datos ───────────────────────────────────────────── */
-const NEWS = [
-  {
-    tag: "Próximamente",
-    tagColor: "text-[#b11212] bg-[#b11212]/10 border-[#b11212]/25",
-    topColor: "#b11212",
-    icon: Trophy,
-    title: "I Campeonato Nacional de Frontón",
-    desc: "El primer torneo oficial de la asociación a nivel nacional. Categorías para todos los niveles y edades.",
-    href: "/championships",
-  },
-  {
-    tag: "En desarrollo",
-    tagColor: "text-amber-400 bg-amber-400/10 border-amber-400/25",
-    topColor: "#f59e0b",
-    icon: BarChart3,
-    title: "Rankings en Tiempo Real",
-    desc: "Sistema de puntuación dinámica actualizado partido a partido. Sigue tu posición en el ranking global.",
-    href: "/dashboard",
-  },
-  {
-    tag: "Próximamente",
-    tagColor: "text-[#b11212] bg-[#b11212]/10 border-[#b11212]/25",
-    topColor: "#b11212",
-    icon: Layers,
-    title: "Torneos por Categorías",
-    desc: "Competiciones separadas por nivel, edad y modalidad. Encuentra el torneo perfecto para ti.",
-    href: "/championships",
-  },
-];
-
-const STEPS = [
-  {
-    icon: UserCheck,
-    step: "01",
-    title: "Crea tu cuenta",
-    desc: "Regístrate en segundos y forma parte de la comunidad AMPFS.",
-  },
-  {
-    icon: Calendar,
-    step: "02",
-    title: "Elige tu torneo",
-    desc: "Explora los campeonatos disponibles y apúntate al que más encaje contigo.",
-  },
-  {
-    icon: Swords,
-    step: "03",
-    title: "Compite y destaca",
-    desc: "Juega, sigue tu ranking en tiempo real y demuestra tu nivel.",
-  },
-];
-
-const NAV_LINKS = [
-  { label: "Inicio",   href: "/" },
-  { label: "Torneos",  href: "/championships" },
-  { label: "Equipos",  href: "/player" },
-  { label: "Perfil",   href: "/dashboard" },
-];
-
 /* ── Componente ──────────────────────────────────────── */
 export default function Home() {
   useRevealObserver();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { data: session, status } = useSession();
+  const [menuHome, setMuenuHome] = useState<MenuHome | null>(null);
+
+  useEffect(() => {
+    setMuenuHome(new MenuHome(session!))
+  }, [session]);
 
   return (
     <div className="bg-[#0e0e0e] text-white dot-grid">
@@ -150,7 +100,7 @@ export default function Home() {
 
           {/* Links — solo escritorio */}
           <div className="hidden lg:flex items-center gap-8 pr-10">
-            {NAV_LINKS.map(({ label, href }) => (
+            {menuHome?.getNAV_LINKS().map(({ label, href }) => (
               <Link
                 key={label}
                 href={href}
@@ -165,9 +115,8 @@ export default function Home() {
 
         {/* ── Menú móvil overlay ──────────────────────────── */}
         <div
-          className={`fixed inset-0 z-50 flex flex-col transition-all duration-300 lg:hidden ${
-            menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-          }`}
+          className={`fixed inset-0 z-50 flex flex-col transition-all duration-300 lg:hidden ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+            }`}
           style={{ backgroundColor: "rgba(8,8,8,0.97)", backdropFilter: "blur(16px)" }}
         >
           {/* Cabecera del menú */}
@@ -192,7 +141,7 @@ export default function Home() {
 
           {/* Links */}
           <div className="flex flex-col px-8 pt-10 gap-1">
-            {NAV_LINKS.map(({ label, href }, i) => (
+            {menuHome?.getNAV_LINKS().map(({ label, href }, i) => (
               <Link
                 key={label}
                 href={href}
@@ -209,24 +158,29 @@ export default function Home() {
           </div>
 
           {/* Footer del menú */}
-          <div className="mt-auto px-8 pb-12 flex items-center gap-4">
-            <Link
-              href="/register"
-              onClick={() => setMenuOpen(false)}
-              className="flex-1 flex items-center justify-center gap-2 font-bold py-4 text-sm tracking-wide text-white"
-              style={{ backgroundColor: "#b11212" }}
-            >
-              Crear cuenta
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/login"
-              onClick={() => setMenuOpen(false)}
-              className="flex-1 flex items-center justify-center border border-white/15 text-white/60 font-bold py-4 text-sm tracking-wide hover:border-white/30 hover:text-white transition-all"
-            >
-              Iniciar sesión
-            </Link>
-          </div>
+          {
+            !session?.user ? <div className="mt-auto px-8 pb-12 flex items-center gap-4">
+              <Link
+                href="/register"
+                onClick={() => setMenuOpen(false)}
+                className="flex-1 flex items-center justify-center gap-2 font-bold py-4 text-sm tracking-wide text-white"
+                style={{ backgroundColor: "#b11212" }}
+              >
+                Crear cuenta
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/login"
+                onClick={() => setMenuOpen(false)}
+                className="flex-1 flex items-center justify-center border border-white/15 text-white/60 font-bold py-4 text-sm tracking-wide hover:border-white/30 hover:text-white transition-all"
+              >
+                Iniciar sesión
+              </Link>
+            </div> :
+              <div className=" h-24 rounded-full border border-(--btn-activo-sidebar) font-bold flex items-center justify-center text-[40px]">
+                {session?.user.username!}
+              </div>
+          }
         </div>
 
         {/* Canvas 3D — capa de fondo absoluta dentro del hero */}
@@ -298,7 +252,7 @@ export default function Home() {
               <div className="flex items-center gap-6 pt-2">
                 {[
                   { n: "150+", l: "Jugadores" },
-                  { n: "12",   l: "Torneos/año" },
+                  { n: "12", l: "Torneos/año" },
                   { n: "500+", l: "Partidos" },
                 ].map(({ n, l }) => (
                   <div key={l} className="flex flex-col">
@@ -523,13 +477,7 @@ export default function Home() {
           <div className="flex flex-col gap-4">
             <p className="text-xs font-bold tracking-widest uppercase text-white/25">Navegación</p>
             <ul className="flex flex-col gap-3">
-              {[
-                { label: "Inicio",         href: "/" },
-                { label: "Torneos",        href: "/championships" },
-                { label: "Equipos",        href: "/player" },
-                { label: "Iniciar sesión", href: "/login" },
-                { label: "Registrarse",    href: "/register" },
-              ].map(({ label, href }) => (
+              {menuHome?.get_PROFILE_LINKS().map(({ label, href }) => (
                 <li key={label}>
                   <Link href={href} className="text-sm text-white/45 hover:text-white transition-colors flex items-center gap-1.5 group">
                     <ChevronRight className="w-3 h-3 text-[#b11212] opacity-0 group-hover:opacity-100 transition-opacity" />
