@@ -16,11 +16,10 @@ export default function Categories() {
     ];
 
     return (
-        <div className="flex flex-col lg:flex-row gap-6 m-6 mt-0">
+        <div className="flex flex-col lg:flex-row gap-6 m-6">
 
-            {/* ================= CATEGORÍAS ================= */}
             <div className="lg:w-64 bg-(--bg-sidebar) border border-(--border-dark) rounded-xl lg:rounded-l-xl p-4 
-                            lg:h-[calc(100vh-220px)] overflow-y-auto custom-scroll">
+                            lg:h-[calc(100vh-305px)] overflow-y-auto custom-scroll">
 
                 <div className="flex justify-between items-center mb-4">
                     <h3 className="text-(--text-sidebar) font-semibold">Categorías</h3>
@@ -47,11 +46,9 @@ export default function Categories() {
                 </ul>
             </div>
 
-            {/* ================= TABLA ================= */}
             <div className="flex-1 bg-(--bg-sidebar) border border-(--border-dark) rounded-xl p-4 
-                            lg:h-[calc(100vh-220px)] flex flex-col">
+                            lg:h-[calc(100vh-305px)] flex flex-col">
 
-                {/* HEADER */}
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4">
 
                     <div className="flex items-center gap-2 bg-(--bg-main) border border-(--border-dark) px-3 py-2 rounded w-full sm:w-72">
@@ -68,7 +65,6 @@ export default function Categories() {
 
                 </div>
 
-                {/* TABLA SCROLL */}
                 <div className="flex-1 overflow-y-auto custom-scroll rounded-lg border border-(--border-dark)">
                     <table className="w-full text-sm">
 
@@ -105,9 +101,8 @@ export default function Categories() {
 
             </div>
 
-            {/* ================= JUGADORES ================= */}
             <div className="lg:w-56 flex flex-col gap-4 
-                            lg:h-[calc(100vh-220px)] overflow-y-auto custom-scroll">
+                            lg:h-[calc(100vh-305px)] overflow-y-auto custom-scroll">
 
                 {[1, 2, 3, 4].map((num) => (
                     <div
