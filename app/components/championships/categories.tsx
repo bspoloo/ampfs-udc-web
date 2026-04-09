@@ -19,7 +19,7 @@ export default function Categories() {
         <div className="flex flex-col lg:flex-row gap-6 m-6">
 
             <div className="lg:w-64 bg-(--bg-sidebar) border border-(--border-dark) rounded-xl lg:rounded-l-xl p-4 
-                            lg:h-[calc(100vh-220px)] overflow-y-auto custom-scroll">
+                            lg:h-[calc(100vh-305px)] overflow-y-auto custom-scroll">
 
                 <div className="flex justify-between items-center mb-4">
                     <h3 className="text-(--text-sidebar) font-semibold">Categorías</h3>
@@ -47,7 +47,7 @@ export default function Categories() {
             </div>
 
             <div className="flex-1 bg-(--bg-sidebar) border border-(--border-dark) rounded-xl p-4 
-                            lg:h-[calc(100vh-220px)] flex flex-col">
+                            lg:h-[calc(100vh-305px)] flex flex-col">
 
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4">
 
@@ -102,7 +102,7 @@ export default function Categories() {
             </div>
 
             <div className="lg:w-56 flex flex-col gap-4 
-                            lg:h-[calc(100vh-220px)] overflow-y-auto custom-scroll">
+                            lg:h-[calc(100vh-305px)] overflow-y-auto custom-scroll">
 
                 {[1, 2, 3, 4].map((num) => (
                     <div
