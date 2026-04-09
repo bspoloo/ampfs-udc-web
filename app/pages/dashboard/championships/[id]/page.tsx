@@ -5,14 +5,16 @@ import { useEffect, useState } from "react";
 import Categories from "@/app/components/championships/categories";
 import Toast from "@/app/components/ui/toast";
 import ConfirmModal from "@/app/components/ui/confirm-modal";
+import { reverseStateMap, stateMap, StatusFront } from "@/app/consts/champion-state";
+import { Championship } from "@/app/interfaces/championship.interface";
+import { getStatusStyles } from "@/app/functions/get-status-styles";
+import { usePatchData } from "@/app/hooks/use-patch-data";
+import { useGetData } from "@/app/hooks/use-get-data";
+import Loader from "@/app/components/loader";
 
-type StatusFront = "activo" | "proceso" | "finalizado";
-
-type Championship = {
-    id: string;
-    name: string;
-    state: "ACTIVE" | "IN_PROGRESS" | "FINISHED";
-};
+interface ChampionState {
+    state: "ACTIVE" | "IN_PROGRESS" | "FINISHED"
+}
 
 export default function ChampionshipDetail() {
     const params = useParams();
@@ -25,85 +27,28 @@ export default function ChampionshipDetail() {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [pendingStatus, setPendingStatus] = useState<StatusFront | null>(null);
-
-    const [championship, setChampionship] = useState<Championship | null>(null);
+    const [championState, setChampionState] = useState<ChampionState| null>(null);
     const [status, setStatus] = useState<StatusFront>("activo");
 
-    const stateMap: Record<StatusFront, Championship["state"]> = {
-        activo: "ACTIVE",
-        proceso: "IN_PROGRESS",
-        finalizado: "FINISHED",
-    };
+    useState(() => {
 
-    const reverseStateMap: Record<Championship["state"], StatusFront> = {
-        ACTIVE: "activo",
-        IN_PROGRESS: "proceso",
-        FINISHED: "finalizado",
-    };
+    });
 
-    const getStatusStyles = (state: StatusFront) => {
-        switch (state) {
-            case "activo":
-                return "bg-green-900 border-green-500 text-green-400";
-            case "proceso":
-                return "bg-yellow-900 border-yellow-500 text-yellow-400";
-            case "finalizado":
-                return "bg-red-900 border-red-500 text-red-400";
-            default:
-                return "bg-gray-800 border-gray-500 text-gray-300";
-        }
-    };
+    const { data: dataPatch, loading: loadPatch, error: errorPatch } = usePatchData<ChampionState, Championship>(`${id}/state`, championState!);
+    const { data: championship, loading: loaderChampion, error: errorChampion } = useGetData<Championship>(`championship/${id}`, id);
 
     const handleChange = (value: StatusFront) => {
         if (value === status) return;
         setPendingStatus(value);
         setIsModalOpen(true);
+        setChampionState({...championState, state: stateMap[value]});
     };
 
     const confirmChange = async () => {
         if (!pendingStatus) return;
-
         const prev = status;
         setStatus(pendingStatus);
         setIsModalOpen(false);
-
-        try {
-            const res = await fetch(`http://localhost:5000/api/v1/championship/${id}/state`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ state: stateMap[pendingStatus] }),
-            });
-
-            const data = await res.json();
-
-            if (!res.ok) {
-                // throw new Error(data.message || "Error al actualizar");
-                setToast({
-                    message: data.message || "Error al actualizar",
-                    type: "error",
-                });
-                setStatus(prev);
-                setTimeout(() => setToast(null), 3000);
-                return;
-            }
-
-            setToast({
-                message: "Estado actualizado correctamente",
-                type: "success",
-            });
-
-        } catch (error: any) {
-            console.error(error);
-            setStatus(prev);
-
-            setToast({
-                message: error.message || "Error al actualizar",
-                type: "error",
-            });
-        }
-
         setTimeout(() => setToast(null), 3000);
     };
 
@@ -112,18 +57,8 @@ export default function ChampionshipDetail() {
         setPendingStatus(null);
     };
 
-    useEffect(() => {
-        fetch(`http://localhost:5000/api/v1/championship/${id}`)
-            .then(res => res.json())
-            .then((data: Championship) => {
-                setChampionship(data);
-                setStatus(reverseStateMap[data.state]);
-            })
-            .catch(err => console.error(err));
-    }, [id]);
-
-    if (!championship) return <p>Cargando...</p>;
-
+    if (!championship) return <Loader></Loader>;
+    if (errorChampion) return <>{toast && <Toast message={errorChampion ?? "Error en traer el campeonato"} type={toast.type} />}</>
     return (
         <div className="text-white -m-6">
             <div className="relative w-full h-40 sm:h-52 md:h-64 overflow-hidden">
