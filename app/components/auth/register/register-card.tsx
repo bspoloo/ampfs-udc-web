@@ -6,6 +6,7 @@ import { DialogDetails } from '../dialog-data/dialog-details';
 import Image from 'next/image';
 import { Eye, EyeOff } from 'lucide-react';
 import ButtonLogin from "../button-login/button-login";
+import Link from "next/link";
 
 export default function RegisterCard() {
     const [error, setError] = useState('');
@@ -153,9 +154,9 @@ export default function RegisterCard() {
             {/* LOGIN LINK */}
             <p className="text-xs text-white/50 text-center">
                 ¿Ya tienes cuenta?{' '}
-                <a href="/login" className="font-bold text-white hover:text-amber-400 transition">
+                <Link href="/login" className="font-bold text-white hover:text-amber-400 transition">
                     Inicia sesión
-                </a>
+                </Link>
             </p>
 
             {/* MODAL */}

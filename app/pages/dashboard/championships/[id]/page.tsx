@@ -79,7 +79,14 @@ export default function ChampionshipDetail() {
             const data = await res.json();
 
             if (!res.ok) {
-                throw new Error(data.message || "Error al actualizar");
+                // throw new Error(data.message || "Error al actualizar");
+                setToast({
+                    message: data.message || "Error al actualizar",
+                    type: "error",
+                });
+                setStatus(prev);
+                setTimeout(() => setToast(null), 3000);
+                return;
             }
 
             setToast({
@@ -120,7 +127,7 @@ export default function ChampionshipDetail() {
     return (
         <div className="text-white -m-6">
             <div className="relative w-full h-40 sm:h-52 md:h-64 overflow-hidden">
-                
+
                 <img
                     src="/championship_detail.webp"
                     className="w-full h-full object-cover"

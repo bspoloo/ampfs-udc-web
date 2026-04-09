@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { Eye, EyeOff } from 'lucide-react';
 import ButtonLogin from '../button-login/button-login';
 import { signIn, SignInResponse } from 'next-auth/react';
+import Link from 'next/link';
 
 export default function LoginCard() {
     const router = useRouter();
@@ -161,9 +162,9 @@ export default function LoginCard() {
             {/* REGISTER LINK */}
             <p className="text-xs text-white/50 text-center">
                 ¿No tienes cuenta?{' '}
-                <a href="/register" className="font-bold text-white hover:text-amber-400 transition">
+                <Link href="/register" className="font-bold text-white hover:text-amber-400 transition">
                     Regístrate gratis
-                </a>
+                </Link>
             </p>
         </div>
     );
