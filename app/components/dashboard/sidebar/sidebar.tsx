@@ -2,19 +2,18 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Trophy, Calendar, HeartHandshake, Users, Mails, PanelLeft, DoorOpen } from "lucide-react";
+import { PanelLeft, DoorOpen } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import { SIDE_BAR_MENU_DASHBOARD } from "@/app/consts/side-bar-menu";
-import { SideBarDashboard } from "@/app/interfaces/dashboard/side-bar-dashboard";
 
 export default function Sidebar() {
     const router = useRouter();
     const pathname = usePathname();
     const [collapsed, setCollapsed] = useState(false);
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
 
     const verifyRoute = (route: string): boolean => {
-        return pathname === route;
+        return pathname.startsWith(route);
     }
     useEffect(() => {
         const handleResize = () => {
