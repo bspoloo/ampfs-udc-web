@@ -9,6 +9,7 @@ import {
   Zap, BarChart3, Layers, X, Menu,
 } from "lucide-react";
 import dynamic from "next/dynamic";
+import { IntroAnimation } from "./components/home/intro-animation";
 
 const HeroModel = dynamic(
   () => import("./components/home/hero-model").then((m) => m.HeroModel),
@@ -110,15 +111,20 @@ const NAV_LINKS = [
 export default function Home() {
   useRevealObserver();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [introComplete, setIntroComplete] = useState(false);
 
   return (
+    <>
+      {!introComplete && (
+        <IntroAnimation onDone={() => setIntroComplete(true)} />
+      )}
     <div className="bg-[#0e0e0e] text-white dot-grid">
 
       {/* ── HERO ───────────────────────────────────────── */}
       <section className="relative min-h-screen w-full overflow-hidden">
         {/* Foto de fondo */}
         <Image
-          src="/fondo_home.webp"
+          src="/fondoHome.png"
           alt="Frontón"
           fill
           className="object-cover object-center"
@@ -569,5 +575,6 @@ export default function Home() {
       </footer>
 
     </div>
+    </>
   );
 }
