@@ -12,11 +12,10 @@ export default withAuth(
             return NextResponse.next();
         }
 
-        // if (!token) {
-        //     const loginUrl = new URL("/login", req.url);
-        //     loginUrl.searchParams.set("callbackUrl", pathname);
-        //     return NextResponse.redirect(loginUrl);
-        // }
+        if (!token) {
+            return NextResponse.redirect(new URL("/login", req.url));
+        }
+
         let hasAccess = false;
 
         Object.entries(PROTECTED_ROUTES).forEach(([route, allowedRoles]) => {
